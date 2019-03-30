@@ -1,0 +1,3 @@
+SettingsControllers:
+    resource: ../../src/Settings/Infrastructure/UI/Http
+    type: annotation
