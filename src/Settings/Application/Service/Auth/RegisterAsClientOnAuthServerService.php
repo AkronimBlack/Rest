@@ -26,7 +26,7 @@ class RegisterAsClientOnAuthServerService implements TransactionalServiceInterfa
     public function execute($request = null)
     {
         $client = new Client();
-        $response = $client->request('POST' , 'http://localhost:8100/api/register/client' , [
+        $response = $client->request('POST' , 'http://172.18.0.3:8100/api/register/client' , [
             'form_params' => [
                 'name' => 'rest_app',
                 'username' => 'Admin',
