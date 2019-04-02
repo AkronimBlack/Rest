@@ -9,13 +9,13 @@
 namespace Settings\Application\Service\Auth;
 
 
-class RegisterAsClientOnAuthRequest
+class RegisterAsClientOnAuthServerRequest
 {
     private $username;
     private $password;
 
     /**
-     * RegisterAsClientOnAuthRequest constructor.
+     * RegisterAsClientOnAuthServerRequest constructor.
      *
      * @param $username
      * @param $password

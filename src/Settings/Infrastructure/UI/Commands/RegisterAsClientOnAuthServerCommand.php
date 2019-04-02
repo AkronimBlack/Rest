@@ -10,7 +10,11 @@ namespace Settings\Infrastructure\UI\Commands;
 
 
 use Doctrine\ORM\EntityManagerInterface;
+use Settings\Application\Service\Auth\RegisterAsClientOnAuthServerRequest;
+use Settings\Application\Service\Auth\RegisterAsClientOnAuthServerService;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Transactional\Transactional;
 
 class RegisterAsClientOnAuthServerCommand extends Command
@@ -26,15 +30,17 @@ class RegisterAsClientOnAuthServerCommand extends Command
      */
     private $em;
     /**
-     * @var ImportRoutesForPermissionService
+     * @var RegisterAsClientOnAuthServerService
      */
-    private $importService;
+    private $registerService;
 
     public function __construct(
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        RegisterAsClientOnAuthServerService $registerService
     ) {
         parent::__construct();
-        $this->em            = $em;
+        $this->em              = $em;
+        $this->registerService = $registerService;
     }
 
     protected static $defaultName = 'security:auth:register';
@@ -42,7 +48,13 @@ class RegisterAsClientOnAuthServerCommand extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Import all defined routes!')
-            ->addOption('clean' , null , InputOption::VALUE_NONE , 'Remove routes in DB that are no longer used in any controller');
+            ->setDescription('Register this app as client on an auth server!');
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $output->writeln($this->registerService->execute(
+            new RegisterAsClientOnAuthServerRequest('temp' , 'temp')
+        ));
     }
 }
