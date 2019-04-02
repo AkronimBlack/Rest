@@ -31,14 +31,11 @@ class RoleFixture extends Fixture implements DependentFixtureInterface
             'ROLE_USER'  => array(
                 'name'       => 'User',
                 'permission' => array(
-                    'get_user_settings'
                 ),
             ),
             'ROLE_ADMIN' => array(
                 'name'       => 'Admin',
                 'permission' => array(
-                    'make_role',
-                    'delete_role'
                 ),
             )
         );

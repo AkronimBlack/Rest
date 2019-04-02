@@ -24,9 +24,6 @@ class PermissionFixture extends Fixture
     public function load(ObjectManager $manager)
     {
         $arrayOfPermissions = array(
-            'make_role' => 'make_role',
-            'delete_role' => 'delete_role',
-            'get_user_settings' => 'get_user_settings'
         );
 
         foreach ($arrayOfPermissions as $key => $value) {
