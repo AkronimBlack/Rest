@@ -12,6 +12,8 @@ services:
       image: mysql:5.7
       container_name: rest-mysql
       working_dir: /application
+      networks:
+        - backend_rest
       volumes:
         - .:/application
       environment:
@@ -22,23 +24,35 @@ services:
       ports:
         - "8103:3306"
 
-    webserver:
-      image: nginx:alpine
-      container_name: rest-webserver
-      working_dir: /application
-      volumes:
-          - .:/application
-          - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      ports:
-       - "8101:80"
 
     php-fpm:
       build: phpdocker/php-fpm
       container_name: rest-php-fpm
       working_dir: /application
+      networks:
+        - backend_rest
+        - reverse-proxy-nginx_reverse-proxy
       volumes:
         - .:/application
         - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.3/fpm/conf.d/99-overrides.ini
+
+    rest:
+      image: nginx:alpine
+      container_name: rest-webserver
+      working_dir: /application
+      networks:
+        - reverse-proxy-nginx_reverse-proxy
+        - backend_rest
+      volumes:
+        - .:/application
+        - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      expose:
+        - "80"
+networks:
+  backend_rest:
+  reverse-proxy-nginx_reverse-proxy:
+    external: true
+
 
 #    auth-rabbit:
 #      image: "rabbitmq:3-management"
