@@ -21,11 +21,7 @@ use Transactional\Transactional;
 class RegisterAsClientOnAuthServerCommand extends Command
 {
     use Transactional;
-
     /**
-     * @var RouterInterface
-     */
-    private $router;
     /**
      * @var EntityManagerInterface
      */

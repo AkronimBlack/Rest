@@ -17,13 +17,16 @@ class RegisterAsClientOnAuthServerService implements TransactionalServiceInterfa
 {
     private $authEndpoint;
     private $appName;
+    private $authRegisterEndPoint;
 
     public function __construct(
         $authEndpoint,
+        $authRegisterEndPoint,
         $appName
     ) {
         $this->authEndpoint = $authEndpoint;
         $this->appName      = $appName;
+        $this->authRegisterEndPoint = $authRegisterEndPoint;
     }
 
     /**
@@ -34,8 +37,13 @@ class RegisterAsClientOnAuthServerService implements TransactionalServiceInterfa
      */
     public function execute($request = null)
     {
+
+        if(!$request->getUsername() || !$request->getPassword()){
+            return 'Username and password required';
+        }
+
         $client   = new Client();
-        $response = $client->request('POST', $this->authEndpoint, [
+        $response = $client->request('POST', $this->authEndpoint . $this->authRegisterEndPoint, [
             'form_params' => [
                 'name'     => $this->appName,
                 'username' => $request->getUsername(),
@@ -55,7 +63,7 @@ class RegisterAsClientOnAuthServerService implements TransactionalServiceInterfa
                 file_put_contents('./config/auth_key.txt', $key . ': ' . $value);
             }
         }
-        echo 'Token saved!'. PHP_EOL;
+        return 'Token saved!';
 
     }
 }
