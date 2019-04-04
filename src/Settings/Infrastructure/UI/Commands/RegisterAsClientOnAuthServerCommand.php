@@ -14,6 +14,7 @@ use Settings\Application\Service\Auth\RegisterAsClientOnAuthServerRequest;
 use Settings\Application\Service\Auth\RegisterAsClientOnAuthServerService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Transactional\Transactional;
 
@@ -48,13 +49,16 @@ class RegisterAsClientOnAuthServerCommand extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Register this app as client on an auth server!');
+            ->setDescription('Register this app as client on an auth server!')
+            ->addOption('username' , 'u' , InputOption::VALUE_REQUIRED , 'Admin username')
+            ->addOption('password' , 'p' , InputOption::VALUE_REQUIRED , 'Admin password')
+        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln($this->registerService->execute(
-            new RegisterAsClientOnAuthServerRequest('temp' , 'temp')
+            new RegisterAsClientOnAuthServerRequest($input->getOption('username') , $input->getOption('password'))
         ));
     }
 }

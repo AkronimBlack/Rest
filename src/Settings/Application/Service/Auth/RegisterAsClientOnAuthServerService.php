@@ -15,24 +15,34 @@ use Transactional\Interfaces\TransactionalServiceInterface;
 class RegisterAsClientOnAuthServerService implements TransactionalServiceInterface
 {
     private $authEndpoint;
+    private $appName;
 
     public function __construct(
-        $authEndpoint
-    )
-    {
+        $authEndpoint,
+        $appName
+    ) {
         $this->authEndpoint = $authEndpoint;
+        $this->appName      = $appName;
     }
 
+    /**
+     * @param RegisterAsClientOnAuthServerRequest $request
+     *
+     * @return mixed
+     */
     public function execute($request = null)
     {
-        $client = new Client();
-        $response = $client->request('POST' , $this->authEndpoint . '/api/register/client' , [
+        $client   = new Client();
+        $response = $client->request('POST', $this->authEndpoint, [
             'form_params' => [
-                'name' => 'rest_app',
-                'username' => 'Admin',
-                'password' => 'Admin'
-            ]
+                'name'     => $this->appName,
+                'username' => $request->getUsername(),
+                'password' => $request->getPassword(),
+            ],
         ]);
+
+        file_put_contents('./config/auth_key.txt', $response->getBody());
+
         return $response->getBody();
     }
 }
