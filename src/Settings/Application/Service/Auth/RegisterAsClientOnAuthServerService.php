@@ -10,6 +10,7 @@ namespace Settings\Application\Service\Auth;
 
 
 use GuzzleHttp\Client;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Transactional\Interfaces\TransactionalServiceInterface;
 
 class RegisterAsClientOnAuthServerService implements TransactionalServiceInterface
@@ -29,6 +30,7 @@ class RegisterAsClientOnAuthServerService implements TransactionalServiceInterfa
      * @param RegisterAsClientOnAuthServerRequest $request
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function execute($request = null)
     {
@@ -41,8 +43,19 @@ class RegisterAsClientOnAuthServerService implements TransactionalServiceInterfa
             ],
         ]);
 
-        file_put_contents('./config/auth_key.txt', $response->getBody());
+        if($response->getStatusCode() !== JsonResponse::HTTP_CREATED){
+            return $response->getBody();
+        }
 
-        return $response->getBody();
+        echo 'Authentication successful!'. PHP_EOL;
+        echo 'Writing token to file!'. PHP_EOL;
+        $decodedJson = json_decode($response->getBody(), true);
+        if(isset($decodedJson['token'])){
+            foreach ($decodedJson as $key => $value){
+                file_put_contents('./config/auth_key.txt', $key . ': ' . $value);
+            }
+        }
+        echo 'Token saved!'. PHP_EOL;
+
     }
 }
