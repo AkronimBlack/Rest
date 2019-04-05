@@ -45,9 +45,7 @@ class GetPublicKeyFromAuthServerCommand extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Register this app as client on an auth server!')
-            ->addOption('username', 'u', InputOption::VALUE_REQUIRED, 'Admin username')
-            ->addOption('password', 'p', InputOption::VALUE_REQUIRED, 'Admin password');
+            ->setDescription('Register this app as client on an auth server!');
     }
 
     /**
@@ -59,10 +57,8 @@ class GetPublicKeyFromAuthServerCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln(
-            $this->getPublicKeyService->execute(
-                new GetPublicKeyFromAuthRequest(
-                )
+        $this->getPublicKeyService->execute(
+            new GetPublicKeyFromAuthRequest(
             )
         );
     }

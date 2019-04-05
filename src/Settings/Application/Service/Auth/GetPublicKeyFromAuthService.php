@@ -10,19 +10,23 @@ namespace Settings\Application\Service\Auth;
 
 
 use GuzzleHttp\Client;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Transactional\Interfaces\TransactionalServiceInterface;
 
 class GetPublicKeyFromAuthService implements TransactionalServiceInterface
 {
     private $authEndpoint;
     private $authKeyEndPoint;
+    private $projectDir;
 
     public function __construct(
         $authEndpoint,
-        $authKeyEndPoint
+        $authKeyEndPoint,
+        $projectDir
     ) {
         $this->authEndpoint = $authEndpoint;
         $this->authKeyEndPoint = $authKeyEndPoint;
+        $this->projectDir = $projectDir;
     }
 
     /**
@@ -33,11 +37,6 @@ class GetPublicKeyFromAuthService implements TransactionalServiceInterface
      */
     public function execute($request = null)
     {
-
-        if(!$request->getUsername() || !$request->getPassword()){
-            return 'Username and password required';
-        }
-
         $file =  file_get_contents('./config/auth_key.txt');
         [$key, $token] = explode(': ', $file);
         $client = new Client();
@@ -46,6 +45,11 @@ class GetPublicKeyFromAuthService implements TransactionalServiceInterface
                 'Authorization'     => 'Bearer ' . $token
             ]
         ]);
-        return $response->getStatusCode();
+        if($response->getStatusCode() === JsonResponse::HTTP_OK){
+            echo 'Authentication successful!' . PHP_EOL;
+            echo 'Saving key to file!' . PHP_EOL;
+            file_put_contents($this->projectDir . "/config/JWT/Auth/public.pem" , $response->getBody());
+            echo 'File created!' . PHP_EOL;
+        }
     }
 }
