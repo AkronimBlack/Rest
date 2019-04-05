@@ -26,12 +26,18 @@ class GetPublicKeyFromAuthServerCommand extends Command
      * @var GetPublicKeyFromAuthService
      */
     private $getPublicKeyService;
+    /**
+     * @var EntityManagerInterface
+     */
+    private $em;
 
     public function __construct(
-        GetPublicKeyFromAuthService $getPublicKeyService
+        GetPublicKeyFromAuthService $getPublicKeyService,
+        EntityManagerInterface $em
     ) {
         parent::__construct();
         $this->getPublicKeyService = $getPublicKeyService;
+        $this->em                  = $em;
     }
 
     protected static $defaultName = 'security:auth:key';
@@ -56,8 +62,6 @@ class GetPublicKeyFromAuthServerCommand extends Command
         $output->writeln(
             $this->getPublicKeyService->execute(
                 new GetPublicKeyFromAuthRequest(
-                    $input->getOption('username'),
-                    $input->getOption('password')
                 )
             )
         );

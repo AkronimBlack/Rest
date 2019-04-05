@@ -42,10 +42,6 @@ class GetPublicKeyFromAuthService implements TransactionalServiceInterface
         [$key, $token] = explode(': ', $file);
         $client = new Client();
         $response = $client->request('POST', $this->authEndpoint . $this->authKeyEndPoint, [
-            'form_params' => [
-                'username' => $request->getUsername(),
-                'password' => $request->getPassword(),
-            ],
             'headers' => [
                 'Authorization'     => 'Bearer ' . $token
             ]
