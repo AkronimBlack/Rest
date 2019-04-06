@@ -48,8 +48,18 @@ class GetPublicKeyFromAuthService implements TransactionalServiceInterface
         if($response->getStatusCode() === JsonResponse::HTTP_OK){
             echo 'Authentication successful!' . PHP_EOL;
             echo 'Saving key to file!' . PHP_EOL;
-            file_put_contents($this->projectDir . "/config/JWT/Auth/public.pem" , $response->getBody());
+            $data = json_decode($response->getBody() , true);
+            file_put_contents($this->projectDir . "/config/JWT/Auth/public.pem" , $data['key']);
             echo 'File created!' . PHP_EOL;
         }
+    }
+
+    public function extractDataFromBody($requestBody): array
+    {
+        $unparsedKey = $requestBody['key'];
+        $key = substr($unparsedKey, 1, -1);
+        return array(
+            'key' => $key
+        );
     }
 }

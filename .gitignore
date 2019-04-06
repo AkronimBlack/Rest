@@ -8,6 +8,7 @@
 /vendor/
 /.idea
 /src/Settings/Resources/Persistence/Doctrine/Migrations
+/config/JWT/Auth
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
