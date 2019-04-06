@@ -32,7 +32,6 @@ class GetPublicKeyFromAuthService implements TransactionalServiceInterface
     /**
      * @param GetPublicKeyFromAuthRequest $request
      *
-     * @return false|string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function execute($request = null)
@@ -52,14 +51,5 @@ class GetPublicKeyFromAuthService implements TransactionalServiceInterface
             file_put_contents($this->projectDir . "/config/JWT/Auth/public.pem" , $data['key']);
             echo 'File created!' . PHP_EOL;
         }
-    }
-
-    public function extractDataFromBody($requestBody): array
-    {
-        $unparsedKey = $requestBody['key'];
-        $key = substr($unparsedKey, 1, -1);
-        return array(
-            'key' => $key
-        );
     }
 }
