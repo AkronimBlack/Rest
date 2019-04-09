@@ -9,6 +9,7 @@
 /.idea
 /src/Settings/Resources/Persistence/Doctrine/Migrations
 /config/JWT/Auth
+/config/JWT/auth_key.txt
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###

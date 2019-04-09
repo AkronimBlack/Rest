@@ -16,6 +16,8 @@ services:
             $authRegisterEndPoint: '%env(AUTH_REGISTER)%'
             $authKeyEndPoint: '%env(AUTH_KEY)%'
             $appName: '%env(APP_NAME)%'
+            $authKeyLocation: '%env(AUTH_KEY_LOCATION)%'
+            $publicKeyLocation: '%env(PUBLIC_KEY_LOCATION)%'
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     Settings\:

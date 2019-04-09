@@ -18,15 +18,21 @@ class GetPublicKeyFromAuthService implements TransactionalServiceInterface
     private $authEndpoint;
     private $authKeyEndPoint;
     private $projectDir;
+    private $authKeyLocation;
+    private $publicKeyLocation;
 
     public function __construct(
         $authEndpoint,
         $authKeyEndPoint,
-        $projectDir
+        $projectDir,
+        $authKeyLocation,
+        $publicKeyLocation
     ) {
-        $this->authEndpoint = $authEndpoint;
+        $this->authEndpoint    = $authEndpoint;
         $this->authKeyEndPoint = $authKeyEndPoint;
-        $this->projectDir = $projectDir;
+        $this->projectDir      = $projectDir;
+        $this->authKeyLocation = $authKeyLocation;
+        $this->publicKeyLocation = $publicKeyLocation;
     }
 
     /**
@@ -36,19 +42,19 @@ class GetPublicKeyFromAuthService implements TransactionalServiceInterface
      */
     public function execute($request = null)
     {
-        $file =  file_get_contents('./config/auth_key.txt');
+        $file = file_get_contents($this->projectDir . $this->authKeyLocation);
         [$key, $token] = explode(': ', $file);
-        $client = new Client();
+        $client   = new Client();
         $response = $client->request('POST', $this->authEndpoint . $this->authKeyEndPoint, [
             'headers' => [
-                'Authorization'     => 'Bearer ' . $token
-            ]
+                'Authorization' => 'Bearer ' . $token,
+            ],
         ]);
-        if($response->getStatusCode() === JsonResponse::HTTP_OK){
+        if ($response->getStatusCode() === JsonResponse::HTTP_OK) {
             echo 'Authentication successful!' . PHP_EOL;
             echo 'Saving key to file!' . PHP_EOL;
-            $data = json_decode($response->getBody() , true);
-            file_put_contents($this->projectDir . "/config/JWT/Auth/public.pem" , $data['key']);
+            $data = json_decode($response->getBody(), true);
+            file_put_contents($this->projectDir . $this->publicKeyLocation, $data['key']);
             echo 'File created!' . PHP_EOL;
         }
     }
