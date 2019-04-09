@@ -1,0 +1,8 @@
+Rest\Domain\Entity\User:
+  type: entity
+  table: Users
+  repositoryClass: Rest\Infrastructure\Repositories\UserRepository
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }

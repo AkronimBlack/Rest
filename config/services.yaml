@@ -20,15 +20,15 @@ services:
             $publicKeyLocation: '%env(PUBLIC_KEY_LOCATION)%'
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
-    Settings\:
-        resource: '../src/Settings/*'
-        exclude: '../src/Settings/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+    Rest\:
+        resource: '../src/Rest/*'
+        exclude: '../src/Rest/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
 
         # controllers are imported separately to make sure services can be injected
         # as action arguments even if you don't extend any base controller class
 
-    Settings\Infrastructure\UI\:
-        resource: '../src/Settings/Infrastructure/UI'
+    Rest\Infrastructure\UI\:
+        resource: '../src/Rest/Infrastructure/UI'
         tags: ['controller.service_arguments']
 
     # add more service definitions when explicit configuration is needed

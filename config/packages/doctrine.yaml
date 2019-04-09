@@ -30,6 +30,6 @@ doctrine:
             Settings:
                 is_bundle: false
                 type: yml
-                dir: '%kernel.project_dir%/src/Settings/Infrastructure/Persistence/Doctrine/Mapping'
-                prefix: 'Settings\Domain'
+                dir: '%kernel.project_dir%/src/Rest/Infrastructure/Persistence/Doctrine/Mapping'
+                prefix: 'Rest\Domain'
                 alias: App

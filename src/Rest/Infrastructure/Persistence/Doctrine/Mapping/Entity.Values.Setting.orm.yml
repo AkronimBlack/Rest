@@ -1,0 +1,15 @@
+Rest\Domain\Entity\Values\Setting:
+  type: entity
+  table: Rest
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+
+  fields:
+    name:
+      type: string
+    type:
+      type: string
+    value:
+      type: string

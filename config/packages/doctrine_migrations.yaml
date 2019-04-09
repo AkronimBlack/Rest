@@ -1,5 +1,5 @@
 doctrine_migrations:
-    dir_name: '%kernel.project_dir%/src/Settings/Resources/Persistence/Doctrine/Migrations'
+    dir_name: '%kernel.project_dir%/src/Rest/Resources/Persistence/Doctrine/Migrations'
         # namespace is arbitrary but should be different from App\Migrations
         # as migrations classes should NOT be autoloaded
-    namespace: Settings\Resources\Persistence\Doctrine\Migrations
+    namespace: Rest\Resources\Persistence\Doctrine\Migrations
