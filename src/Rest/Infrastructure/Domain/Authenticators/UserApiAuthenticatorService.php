@@ -71,8 +71,7 @@ class UserApiAuthenticatorService extends AbstractGuardAuthenticator
         [$tokenType, $token] = explode(' ', $request->headers->get('Authorization'));
 
         return [
-            'token'     => $token,
-            'tokenType' => $tokenType,
+            'token'     => $token
         ];
     }
 
@@ -86,12 +85,7 @@ class UserApiAuthenticatorService extends AbstractGuardAuthenticator
      */
     public function getUser($credentials, UserProviderInterface $userProvider): ?UserInterface
     {
-        $accessToken = $this->em->getRepository(AccessToken::class)
-                                ->findOneBy(['token' => $credentials['token']]);
-
-        if ($accessToken) {
-            return $accessToken->getUser();
-        }
+        //validate JWT and construct user (user object with UserInterface -> no persis required)
 
         return null;
     }
