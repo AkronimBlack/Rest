@@ -8,7 +8,7 @@
 
 namespace Rest\Infrastructure\Domain\Authenticators;
 
-use Doctrine\ORM\EntityManagerInterface;
+use Firebase\JWT\JWT;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,16 +21,23 @@ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 
 class UserApiAuthenticatorService extends AbstractGuardAuthenticator
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
 
     private $keyword = "authorization";
+    private $projectDir;
+    private $authKeyLocation;
 
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
+    /**
+     * UserApiAuthenticatorService constructor.
+     *
+     * @param $projectDir
+     * @param $authKeyLocation
+     */
+    public function __construct(
+        $projectDir,
+        $authKeyLocation
+    ) {
+        $this->projectDir = $projectDir;
+        $this->authKeyLocation = $authKeyLocation;
     }
 
     /**
@@ -71,7 +78,7 @@ class UserApiAuthenticatorService extends AbstractGuardAuthenticator
         [$tokenType, $token] = explode(' ', $request->headers->get('Authorization'));
 
         return [
-            'token'     => $token
+            'token' => $token,
         ];
     }
 
@@ -86,6 +93,8 @@ class UserApiAuthenticatorService extends AbstractGuardAuthenticator
     public function getUser($credentials, UserProviderInterface $userProvider): ?UserInterface
     {
         //validate JWT and construct user (user object with UserInterface -> no persis required)
+        $publicKey = file_get_contents($this->projectDir . $this->authKeyLocation);
+        $user      = JWT::decode($credentials['token'] , $publicKey);
 
         return null;
     }
