@@ -6,7 +6,7 @@
  * Time: 15:52
  */
 
-namespace Rest\Domain\Services\EventListeners;
+namespace Rest\Infrastructure\Domain\EventListeners;
 
 
 use Rest\Domain\Services\Exceptions\DomainException;

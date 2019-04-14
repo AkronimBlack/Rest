@@ -6,7 +6,7 @@
  * Time: 20:17
  */
 
-namespace Rest\Domain\Services\EventListeners;
+namespace Rest\Infrastructure\Domain\EventListeners;
 
 use Rest\Domain\Services\Exceptions\UserDoesntHavePermissionException;
 use Rest\Domain\Services\Permission\CheckForPermissionService;
