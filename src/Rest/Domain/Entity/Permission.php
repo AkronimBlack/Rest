@@ -26,21 +26,57 @@ class Permission
     /**
      * @var string
      */
-    private $action;
+    private $route;
     /**
      * @var string
      */
-    private $method;
+    private $type;
 
     public function __construct(
         string $name,
         string $action,
-        string $method
+        string $type
     ) {
-        $this->roles  = new ArrayCollection();
-        $this->name   = $name;
-        $this->action = $action;
-        $this->method = $method;
+        $this->roles = new ArrayCollection();
+        $this->name  = $name;
+        $this->route = $action;
+        $this->type  = $type;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return Permission
+     */
+    public function setName(string $name): Permission
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @param string $route
+     *
+     * @return Permission
+     */
+    public function setRoute(string $route): Permission
+    {
+        $this->route = $route;
+
+        return $this;
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return Permission
+     */
+    public function setType(string $type): Permission
+    {
+        $this->type = $type;
+
+        return $this;
     }
 
     /**
@@ -62,9 +98,9 @@ class Permission
     /**
      * @return string
      */
-    public function getAction(): string
+    public function getRoute(): string
     {
-        return $this->action;
+        return $this->route;
     }
 
     public function addRole(Role $role): Permission
@@ -77,8 +113,8 @@ class Permission
     /**
      * @return string
      */
-    public function getMethod(): string
+    public function getType(): string
     {
-        return $this->method;
+        return $this->type;
     }
 }

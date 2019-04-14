@@ -11,7 +11,9 @@ Rest\Domain\Entity\Permission:
   fields:
     name:
       type: string
-    action:
+    route:
+      type: string
+    type:
       type: string
 
   manyToMany:
