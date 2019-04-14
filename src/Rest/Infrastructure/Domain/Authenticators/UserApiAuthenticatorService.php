@@ -8,7 +8,8 @@
 
 namespace Rest\Infrastructure\Domain\Authenticators;
 
-use Firebase\JWT\JWT;
+use Rest\Domain\Services\Exceptions\InvalidTokenException;
+use Rest\Infrastructure\Domain\User\ConstructUserFromJwtTokenService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,21 +24,20 @@ class UserApiAuthenticatorService extends AbstractGuardAuthenticator
 {
 
     private $keyword = "authorization";
-    private $projectDir;
-    private $authKeyLocation;
+    /**
+     * @var ConstructUserFromJwtTokenService
+     */
+    private $constructUserService;
 
     /**
      * UserApiAuthenticatorService constructor.
      *
-     * @param $projectDir
-     * @param $authKeyLocation
+     * @param ConstructUserFromJwtTokenService $constructUserService
      */
     public function __construct(
-        $projectDir,
-        $authKeyLocation
+        ConstructUserFromJwtTokenService $constructUserService
     ) {
-        $this->projectDir = $projectDir;
-        $this->authKeyLocation = $authKeyLocation;
+        $this->constructUserService = $constructUserService;
     }
 
     /**
@@ -62,7 +62,7 @@ class UserApiAuthenticatorService extends AbstractGuardAuthenticator
      */
     public function supports(Request $request): bool
     {
-        return $request->headers->has($this->keyword) && (strpos($request->headers->get($this->keyword), 'Bearer ') !== false);
+        return true;
     }
 
     /**
@@ -75,6 +75,9 @@ class UserApiAuthenticatorService extends AbstractGuardAuthenticator
      */
     public function getCredentials(Request $request)
     {
+        if(!$request->headers->has($this->keyword) && !(strpos($request->headers->get($this->keyword), 'Bearer ') !== false)){
+            throw new InvalidTokenException(['token' => 'missing']);
+        }
         [$tokenType, $token] = explode(' ', $request->headers->get('Authorization'));
 
         return [
@@ -92,9 +95,10 @@ class UserApiAuthenticatorService extends AbstractGuardAuthenticator
      */
     public function getUser($credentials, UserProviderInterface $userProvider): ?UserInterface
     {
-        //validate JWT and construct user (user object with UserInterface -> no persis required)
-        $publicKey = file_get_contents($this->projectDir . $this->authKeyLocation);
-        $user      = JWT::decode($credentials['token'] , $publicKey);
+        $user = $this->constructUserService->execute($credentials['token']);
+        if ($user) {
+            return $user;
+        }
 
         return null;
     }

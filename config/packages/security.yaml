@@ -6,8 +6,13 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
+        user:
             anonymous: true
+            context: user
+            stateless: true
+            guard:
+                authenticators:
+                    - Rest\Infrastructure\Domain\Authenticators\UserApiAuthenticatorService
 
             # activate different ways to authenticate
 

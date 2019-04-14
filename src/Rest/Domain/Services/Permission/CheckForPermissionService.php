@@ -10,8 +10,8 @@ namespace Rest\Domain\Services\Permission;
 
 
 use Doctrine\ORM\EntityManagerInterface;
-use Rest\Domain\Entity\Role;
-use Rest\Domain\Entity\User;
+use Rest\Domain\Entity\User\UserValidationInterface;
+use Rest\Domain\Services\Exceptions\UserDoesntHavePermissionException;
 
 class CheckForPermissionService
 {
@@ -32,21 +32,13 @@ class CheckForPermissionService
      *
      */
     public function execute(
-        $user,
+        UserValidationInterface $user,
         $route
     ): void
     {
-        if($user instanceof User){
-            $permission = $user->hasPermission($route);
-            if(!$permission){
-                throw new UserDoesntHavePermissionException(['username' => $user->getUsername()]);
-            }
-        }else{
-            $role = $this->em->getRepository(Role::class)->findByReference(Role::ANON_ROLE);
-            $permission = $role->hasPermission($route);
-            if(!$permission){
-                throw new UserDoesntHavePermissionException(['username' => 'Anon']);
-            }
+        $permission = $user->hasPermission($route);
+        if(!$permission){
+            throw new UserDoesntHavePermissionException(['username' => $user->getUsername()]);
         }
     }
 }
