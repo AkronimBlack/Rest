@@ -36,6 +36,10 @@ class RoleFixture extends Fixture implements DependentFixtureInterface
             'ROLE_ADMIN' => array(
                 'name'       => 'Admin',
                 'permission' => array(
+                    'get_user_settings',
+                    'add_permission_to_role',
+                    'view_all_roles',
+                    'view_permissions_for_role'
                 ),
             )
         );

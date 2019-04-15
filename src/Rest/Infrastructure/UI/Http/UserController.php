@@ -15,10 +15,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class UserController extends TransactionalRestController
 {
     /**
-     * @Rest\Get("/testing" , name="testing")
+     * @Rest\Get("/user/settings" , name="get_user_settings")
      */
-    public function testing()
+    public function getUserSettings():JsonResponse
     {
+
+
         return new JsonResponse(['testing']);
     }
 }
