@@ -10,22 +10,56 @@ namespace Rest\Domain\Entity\User;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\PersistentCollection;
 
 class UserSettingsItem
 {
-    private $userSettingsItem;
+    private $id;
+    private $name;
+    private $value;
+    private $app;
+    private $userSettings;
 
-    public function __construct()
+    public function __construct(
+        $name,
+        $value,
+        $app
+    )
     {
-        $this->userSettingsItem = new ArrayCollection();
+        $this->name = $name;
+        $this->value = $value;
+        $this->app = $app;
+        $this->userSettings = new ArrayCollection();
     }
 
     /**
-     * @return PersistentCollection
+     * @return mixed
      */
-    public function getUserSettingsItem(): PersistentCollection
+    public function getName()
     {
-        return $this->userSettingsItem;
+        return $this->name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getApp()
+    {
+        return $this->app;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getUserSettings(): ArrayCollection
+    {
+        return $this->userSettings;
     }
 }

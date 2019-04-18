@@ -17,7 +17,7 @@ class UserController extends TransactionalRestController
     /**
      * @Rest\Get("/user/settings" , name="get_user_settings")
      */
-    public function getUserSettings():JsonResponse
+    public function getUserSettings(): JsonResponse
     {
 
 

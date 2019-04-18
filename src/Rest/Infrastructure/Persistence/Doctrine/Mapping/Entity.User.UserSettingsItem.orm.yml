@@ -1,12 +1,12 @@
-Rest\Domain\Entity\User\User:
+Rest\Domain\Entity\User\UserSettingsItem:
   type: entity
-  table: users
+  table: user_settings_item
   id:
     id:
       type: integer
       generator: { strategy: AUTO }
 
-  oneToMany:
-    settings:
+  manyToMany:
+    userSettings:
       targetEntity: Rest\Domain\Entity\User\UserSettings
-      mappedBy: user
+      inversedBy: userSettingsItems

@@ -8,6 +8,7 @@
 
 namespace Rest\Domain\Entity\User;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface , UserValidationInterface
@@ -16,6 +17,7 @@ class User implements UserInterface , UserValidationInterface
     private $id;
     private $username;
     private $roles;
+    private $settings;
 
     /**
      *
@@ -30,6 +32,8 @@ class User implements UserInterface , UserValidationInterface
     {
         $this->username = $username;
         $this->roles = $roles;
+
+        $this->settings = new ArrayCollection();
     }
 
 
@@ -114,5 +118,13 @@ class User implements UserInterface , UserValidationInterface
             }
         }
         return false;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSettings(): ArrayCollection
+    {
+        return $this->settings;
     }
 }

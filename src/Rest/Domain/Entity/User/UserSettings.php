@@ -9,33 +9,36 @@
 namespace Rest\Domain\Entity\User;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
+
 class UserSettings
 {
-    private $name;
-    private $value;
+    private $id;
+    private $userSettingsItems;
+    private $user;
 
     public function __construct(
-        $name,
-        $value
+        User $user
     )
     {
-        $this->name = $name;
-        $this->value = $value;
+        $this->userSettingsItems = new ArrayCollection();
+        $this->user = $user;
     }
 
     /**
-     * @return mixed
+     * @return PersistentCollection
      */
-    public function getName()
+    public function getUserSettingsItems(): PersistentCollection
     {
-        return $this->name;
+        return $this->userSettingsItems;
     }
 
     /**
-     * @return mixed
+     * @return User
      */
-    public function getValue()
+    public function getUser(): User
     {
-        return $this->value;
+        return $this->user;
     }
 }

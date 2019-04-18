@@ -34,7 +34,7 @@ class RoleController extends TransactionalRestController
      */
     public function viewAllRoles(ViewAllRolesService $service): JsonResponse
     {
-        return new JsonResponse($service->execute() , JsonResponse::HTTP_OK);
+        return new JsonResponse($service->execute(), JsonResponse::HTTP_OK);
     }
 
     /**
@@ -45,7 +45,7 @@ class RoleController extends TransactionalRestController
      *
      * @return JsonResponse
      */
-    public function viewPermissionsForRole(ViewPermissionsOfRoleService $service , Request $request): JsonResponse
+    public function viewPermissionsForRole(ViewPermissionsOfRoleService $service, Request $request): JsonResponse
     {
         $data = $service->execute(
             new ViewPermissionsOfRoleRequest(
@@ -53,6 +53,6 @@ class RoleController extends TransactionalRestController
             )
         );
 
-        return new JsonResponse($data , JsonResponse::HTTP_OK);
+        return new JsonResponse($data, JsonResponse::HTTP_OK);
     }
 }
