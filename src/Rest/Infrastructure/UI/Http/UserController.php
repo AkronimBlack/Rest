@@ -25,15 +25,18 @@ class UserController extends TransactionalRestController
      *
      * @return JsonResponse
      */
-    public function getUserSettings(Request $request , ViewUserSettingsService $service): JsonResponse
+    public function getUserSettings(Request $request, ViewUserSettingsService $service): JsonResponse
     {
-        $resposne = $service->execute(
+
+        $resposne = $this->runAsTransaction(
+            $service,
             new ViewUserSettingsRequest(
                 $this->getUser(),
                 'placeholder'
             )
         );
 
-        return new JsonResponse($resposne , JsonResponse::HTTP_OK);
+
+        return new JsonResponse($resposne, JsonResponse::HTTP_OK);
     }
 }

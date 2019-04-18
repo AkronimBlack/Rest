@@ -3,31 +3,23 @@
 namespace Rest\Application\Service\User;
 
 
-use Rest\Domain\Entity\User\User;
+use Rest\Infrastructure\Domain\User\ValidatedUser;
 
 class ViewUserSettingsRequest
 {
-    /**
-     * @var User
-     */
-    private $user;
     private $appId;
+    /**
+     * @var ValidatedUser
+     */
+    private $validatedUser;
 
     public function __construct(
-        User $user,
+        ValidatedUser $validatedUser,
         $appId
     )
     {
-        $this->user = $user;
         $this->appId = $appId;
-    }
-
-    /**
-     * @return User
-     */
-    public function getUser(): User
-    {
-        return $this->user;
+        $this->validatedUser = $validatedUser;
     }
 
     /**
@@ -36,5 +28,13 @@ class ViewUserSettingsRequest
     public function getAppId()
     {
         return $this->appId;
+    }
+
+    /**
+     * @return ValidatedUser
+     */
+    public function getValidatedUser(): ValidatedUser
+    {
+        return $this->validatedUser;
     }
 }

@@ -17,16 +17,16 @@ class UserSettings
     private $id;
     private $userSettingsItems;
     private $user;
-    private $app;
+    private $appIdentifier;
 
     public function __construct(
         User $user,
-        $app
+        $appIdentifier
     )
     {
         $this->userSettingsItems = new ArrayCollection();
         $this->user = $user;
-        $this->app = $app;
+        $this->appIdentifier = $appIdentifier;
     }
 
     /**
@@ -48,8 +48,8 @@ class UserSettings
     /**
      * @return mixed
      */
-    public function getApp()
+    public function getAppIdentifier()
     {
-        return $this->app;
+        return $this->appIdentifier;
     }
 }

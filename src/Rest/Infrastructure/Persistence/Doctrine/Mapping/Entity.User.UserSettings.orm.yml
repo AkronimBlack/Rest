@@ -11,11 +11,12 @@ Rest\Domain\Entity\User\UserSettings:
       targetEntity: Rest\Domain\Entity\User\User
       inversedBy: settings
 
+
   manyToMany:
     userSettingsItems:
       targetEntity: Rest\Domain\Entity\User\UserSettingsItem
       mappedBy: userSettings
 
   fields:
-    app:
+    appIdentifier:
       type: string

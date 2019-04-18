@@ -6,7 +6,14 @@ Rest\Domain\Entity\User\User:
       type: integer
       generator: { strategy: AUTO }
 
+  repositoryClass: Rest\Infrastructure\Repositories\UserRepository
+
+  fields:
+    identifier:
+      type: string
+
   oneToMany:
     settings:
       targetEntity: Rest\Domain\Entity\User\UserSettings
       mappedBy: user
+      cascade: ["persist"]

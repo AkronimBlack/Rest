@@ -12,7 +12,7 @@ Rest\Domain\Entity\User\UserSettingsItem:
       inversedBy: userSettingsItems
 
   fields:
-    name:
+    identifier:
       type: string
     value:
       type: string

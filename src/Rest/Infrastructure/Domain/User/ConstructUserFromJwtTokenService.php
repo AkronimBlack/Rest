@@ -57,9 +57,10 @@ class ConstructUserFromJwtTokenService
             throw new InvalidTokenException(['Roles' => 'missing']);
         }
 
-        return new User(
+        return new ValidatedUser(
             $userData->usn,
             $userRoles
         );
+
     }
 }

@@ -14,16 +14,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 class UserSettingsItem
 {
     private $id;
-    private $name;
+    private $identifier;
     private $value;
     private $userSettings;
 
     public function __construct(
-        $name,
+        $identifier,
         $value
     )
     {
-        $this->name = $name;
+        $this->identifier = $identifier;
         $this->value = $value;
         $this->userSettings = new ArrayCollection();
     }
@@ -31,9 +31,9 @@ class UserSettingsItem
     /**
      * @return mixed
      */
-    public function getName()
+    public function getIdentifier()
     {
-        return $this->name;
+        return $this->identifier;
     }
 
     /**
