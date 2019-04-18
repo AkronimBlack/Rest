@@ -127,4 +127,15 @@ class User implements UserInterface , UserValidationInterface
     {
         return $this->settings;
     }
+
+    public function getSettingsForApp($appId)
+    {
+        /**
+         * @var UserSettings $settings
+         */
+        foreach ($this->getSettings() as $settings)
+        {
+//            if($settings->getUserSettingsItems())
+        }
+    }
 }

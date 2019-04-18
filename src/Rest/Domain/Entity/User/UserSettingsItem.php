@@ -16,18 +16,15 @@ class UserSettingsItem
     private $id;
     private $name;
     private $value;
-    private $app;
     private $userSettings;
 
     public function __construct(
         $name,
-        $value,
-        $app
+        $value
     )
     {
         $this->name = $name;
         $this->value = $value;
-        $this->app = $app;
         $this->userSettings = new ArrayCollection();
     }
 
@@ -45,14 +42,6 @@ class UserSettingsItem
     public function getValue()
     {
         return $this->value;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getApp()
-    {
-        return $this->app;
     }
 
     /**

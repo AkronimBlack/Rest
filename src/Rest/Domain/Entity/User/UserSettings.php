@@ -17,13 +17,16 @@ class UserSettings
     private $id;
     private $userSettingsItems;
     private $user;
+    private $app;
 
     public function __construct(
-        User $user
+        User $user,
+        $app
     )
     {
         $this->userSettingsItems = new ArrayCollection();
         $this->user = $user;
+        $this->app = $app;
     }
 
     /**
@@ -40,5 +43,13 @@ class UserSettings
     public function getUser(): User
     {
         return $this->user;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getApp()
+    {
+        return $this->app;
     }
 }

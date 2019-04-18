@@ -10,3 +10,9 @@ Rest\Domain\Entity\User\UserSettingsItem:
     userSettings:
       targetEntity: Rest\Domain\Entity\User\UserSettings
       inversedBy: userSettingsItems
+
+  fields:
+    name:
+      type: string
+    value:
+      type: string

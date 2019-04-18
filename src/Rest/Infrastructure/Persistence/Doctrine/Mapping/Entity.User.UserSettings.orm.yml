@@ -15,3 +15,7 @@ Rest\Domain\Entity\User\UserSettings:
     userSettingsItems:
       targetEntity: Rest\Domain\Entity\User\UserSettingsItem
       mappedBy: userSettings
+
+  fields:
+    app:
+      type: string
