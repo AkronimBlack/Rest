@@ -7,7 +7,7 @@
 /var/
 /vendor/
 /.idea
-/src/Settings/Resources/Persistence/Doctrine/Migrations
+/src/Rest/Resources/Persistence/Doctrine/Migrations
 /config/JWT/Auth
 /config/JWT/auth_key.txt
 ###< symfony/framework-bundle ###
