@@ -32,12 +32,15 @@ class ViewUserSettingsService implements TransactionalServiceInterface
             $user = new User(
                 $request->getValidatedUser()->getUsername()
             );
+            $this->userRepository->persist($user);
+        }
+
+        if(empty($user->getSettingsForApp($request->getAppId()))){
             $userSettings = new UserSettings(
                 $user,
                 $request->getAppId()
             );
             $user->addSettings($userSettings);
-            $this->userRepository->persist($user);
         }
 
         return $user->getSettingsForApp($request->getAppId());
