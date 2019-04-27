@@ -6,20 +6,20 @@ namespace Rest\Application\Service\Role;
 
 class DeleteRoleRequest
 {
-    private $designation;
+    private $id;
 
     public function __construct(
-        $designation
+        $id
     )
     {
-        $this->designation = $designation;
+        $this->id = $id;
     }
 
     /**
      * @return mixed
      */
-    public function getDesignation()
+    public function getId()
     {
-        return $this->designation;
+        return $this->id;
     }
 }

@@ -57,7 +57,7 @@ class RoleController extends TransactionalRestController
         $data = $this->runAsTransaction(
             $service,
             new DeleteRoleRequest(
-                $request->get('designation')
+                $request->get('id')
             )
         );
 

@@ -34,6 +34,7 @@ class ViewAllRolesService
         $roleArray = [];
         foreach ($roles as $role){
             $roleArray[] = [
+                'id' => $role->getId(),
                 'name' => $role->getName(),
                 'designation' => $role->getRole()
             ];

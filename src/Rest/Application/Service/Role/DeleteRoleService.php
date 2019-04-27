@@ -5,7 +5,6 @@ namespace Rest\Application\Service\Role;
 
 
 use Doctrine\ORM\EntityManagerInterface;
-use http\Env\Request;
 use Rest\Domain\Entity\Role;
 use Rest\Domain\Services\Exceptions\NoSuchRoleException;
 use Transactional\Interfaces\TransactionalServiceInterface;
@@ -28,9 +27,9 @@ class DeleteRoleService implements TransactionalServiceInterface
      */
     public function execute($request = null)
     {
-        $role = $this->roleRepository->findByReference($request->getDesignation());
+        $role = $this->roleRepository->find($request->getId());
         if(!$role){
-            throw new NoSuchRoleException(['designation' => $request->getDesignation()]);
+            throw new NoSuchRoleException(['id' => $request->getId()]);
         }
 
         $this->roleRepository->remove($role);
