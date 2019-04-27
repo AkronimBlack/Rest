@@ -36,6 +36,15 @@ class PermissionFixture extends Fixture
             'view_permissions_for_role' => array(
                 '/api/role/permissions' => 'GET'
             ),
+            'create_role' => array(
+                '/api/role' => 'POST'
+            ),
+            'delete_role' => array(
+                '/api/role' => 'DELETE'
+            ),
+            'edit_role' => array(
+                '/api/role' => 'PUT'
+            )
         );
 
         foreach ($arrayOfPermissions as $name => $array) {

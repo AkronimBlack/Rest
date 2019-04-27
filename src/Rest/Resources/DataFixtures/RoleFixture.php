@@ -31,6 +31,7 @@ class RoleFixture extends Fixture implements DependentFixtureInterface
             'ROLE_USER'  => array(
                 'name'       => 'User',
                 'permission' => array(
+                    'get_user_settings',
                 ),
             ),
             'ROLE_ADMIN' => array(
@@ -39,7 +40,10 @@ class RoleFixture extends Fixture implements DependentFixtureInterface
                     'get_user_settings',
                     'add_permission_to_role',
                     'view_all_roles',
-                    'view_permissions_for_role'
+                    'view_permissions_for_role',
+                    'create_role',
+                    'delete_role',
+                    'edit_role'
                 ),
             )
         );
