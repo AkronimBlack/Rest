@@ -24,11 +24,11 @@ class PermissionRepository extends EntityRepository
         return $this->findOneBy(['route' => $route]);
     }
 
-    public function add(Permission $permission)
+    public function add(Permission $permission): void
     {
         $this->getEntityManager()->persist($permission);
     }
-    public function remove(Permission $permission)
+    public function remove(Permission $permission): void
     {
         $this->getEntityManager()->remove($permission);
     }

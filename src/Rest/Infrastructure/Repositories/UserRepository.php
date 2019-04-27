@@ -14,7 +14,7 @@ class UserRepository extends EntityRepository
         return $this->findOneBy(['identifier' => $identifier]);
     }
 
-    public function persist(User $user)
+    public function persist(User $user): void
     {
         $this->getEntityManager()->persist($user);
     }

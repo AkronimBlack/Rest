@@ -43,7 +43,7 @@ class DomainExceptionSubscriber implements EventSubscriberInterface
         );
     }
 
-    public function onResourceException(GetResponseForExceptionEvent $event)
+    public function onResourceException(GetResponseForExceptionEvent $event): void
     {
         $e = $event->getException();
         if (!$e instanceof DomainException) {

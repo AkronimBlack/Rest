@@ -27,7 +27,7 @@ class UserController extends TransactionalRestController
      */
     public function getUserSettings(Request $request, ViewUserSettingsService $service): JsonResponse
     {
-
+        return new JsonResponse('testing', JsonResponse::HTTP_OK);
         $respone = $this->runAsTransaction(
             $service,
             new ViewUserSettingsRequest(
@@ -39,4 +39,11 @@ class UserController extends TransactionalRestController
 
         return new JsonResponse($respone, JsonResponse::HTTP_OK);
     }
+//    public function getCalenderData()
+//    {
+//
+//
+//
+//        return new JsonResponse('test' , JsonResponse::HTTP_OK);
+//    }
 }

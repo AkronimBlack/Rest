@@ -18,7 +18,7 @@ class RoleRepository extends EntityRepository
      * @param string $role
      * @return Role|null
      */
-    public function findByReference(string $role)
+    public function findByReference(string $role): ?Role
     {
         return $this->findOneBy(['role' => $role]);
     }
@@ -27,7 +27,7 @@ class RoleRepository extends EntityRepository
      * @param string $name
      * @return Role|null
      */
-    public function findByName(string $name)
+    public function findByName(string $name): ?Role
     {
         return $this->findOneBy(['name' => $name]);
     }
