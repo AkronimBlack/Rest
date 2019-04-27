@@ -12,6 +12,8 @@ namespace Rest\Infrastructure\UI\Http;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Rest\Application\Service\Role\CreateNewRoleRequest;
 use Rest\Application\Service\Role\CreateNewRoleService;
+use Rest\Application\Service\Role\DeleteRoleRequest;
+use Rest\Application\Service\Role\DeleteRoleService;
 use Rest\Application\Service\Role\ViewAllRolesService;
 use Rest\Application\Service\Role\ViewPermissionsOfRoleRequest;
 use Rest\Application\Service\Role\ViewPermissionsOfRoleService;
@@ -40,6 +42,28 @@ class RoleController extends TransactionalRestController
 
         return new JsonResponse($data , JsonResponse::HTTP_OK);
     }
+
+    /**
+     * @Rest\Delete("/api/role" , name="create_role")
+     * @param Request $request
+     *
+     *
+     * @param DeleteRoleService $service
+     *
+     * @return JsonResponse
+     */
+    public function deleteRole(Request $request , DeleteRoleService $service): JsonResponse
+    {
+        $data = $this->runAsTransaction(
+            $service,
+            new DeleteRoleRequest(
+                $request->get('designation')
+            )
+        );
+
+        return new JsonResponse($data , JsonResponse::HTTP_OK);
+    }
+
 
     /**
      * @Rest\Post("/api/role/permission" , name="add_permission_to_role")
