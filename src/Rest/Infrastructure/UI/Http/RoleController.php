@@ -44,7 +44,7 @@ class RoleController extends TransactionalRestController
     }
 
     /**
-     * @Rest\Delete("/api/role" , name="create_role")
+     * @Rest\Delete("/api/role" , name="delete_role")
      * @param Request $request
      *
      *

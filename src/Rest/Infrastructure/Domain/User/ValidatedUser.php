@@ -100,11 +100,11 @@ class ValidatedUser implements UserInterface , UserValidationInterface
         // TODO: Implement eraseCredentials() method.
     }
 
-    public function hasPermission($route)
+    public function hasPermission($route , $method)
     {
         /**@var Role $role */
         foreach ($this->roles as $role){
-            $check = $role->hasPermission($route);
+            $check = $role->hasPermission($route , $method);
             if($check){
                 return $check;
             }

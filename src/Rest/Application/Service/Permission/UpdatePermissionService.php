@@ -32,8 +32,8 @@ class UpdatePermissionService
     public function execute($request = null): array
     {
         $returnMessage = array();
+        $permissionRepository = $this->em->getRepository(Permission::class);
         foreach ($request->getMethods() as $method){
-            $permissionRepository = $this->em->getRepository(Permission::class);
             $permission = $permissionRepository->findByName($request->getName());
             /**
              * @var Permission $permission

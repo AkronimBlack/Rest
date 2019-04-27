@@ -27,16 +27,17 @@ class CheckForPermissionService
     }
 
     /**
-     * @param $user
+     * @param UserValidationInterface $user
      * @param $route
-     *
+     * @param $method
      */
     public function execute(
         UserValidationInterface $user,
-        $route
+        $route,
+        $method
     ): void
     {
-        $permission = $user->hasPermission($route);
+        $permission = $user->hasPermission($route , $method);
         if(!$permission){
             throw new UserDoesntHavePermissionException(['username' => $user->getUsername()]);
         }

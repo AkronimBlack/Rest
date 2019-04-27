@@ -13,5 +13,5 @@ interface UserValidationInterface
 {
     public function getUsername();
     public function getRoles();
-    public function hasPermission($route);
+    public function hasPermission($route , $method);
 }

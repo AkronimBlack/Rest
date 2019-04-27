@@ -56,7 +56,8 @@ class RequestListener implements EventSubscriberInterface
         }
         $this->checkForPermissionService->execute(
             $user,
-            $event->getRequest()->getPathInfo()
+            $event->getRequest()->getPathInfo(),
+            $event->getRequest()->getMethod()
         );
     }
 }

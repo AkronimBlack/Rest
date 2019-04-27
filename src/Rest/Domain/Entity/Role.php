@@ -62,10 +62,10 @@ class Role
     }
 
 
-    public function hasPermission(string $route)
+    public function hasPermission(string $route , string $method)
     {
         foreach ($this->getPermissions() as $permission){
-            if($permission->getRoute() === $route){
+            if($permission->getRoute() === $route && $permission->getType() === $method){
                 return $permission;
             }
         }
