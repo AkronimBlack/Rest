@@ -14,6 +14,8 @@ use Rest\Application\Service\Role\CreateNewRoleRequest;
 use Rest\Application\Service\Role\CreateNewRoleService;
 use Rest\Application\Service\Role\DeleteRoleRequest;
 use Rest\Application\Service\Role\DeleteRoleService;
+use Rest\Application\Service\Role\EditRoleRequest;
+use Rest\Application\Service\Role\EditRoleService;
 use Rest\Application\Service\Role\ViewAllRolesService;
 use Rest\Application\Service\Role\ViewPermissionsOfRoleRequest;
 use Rest\Application\Service\Role\ViewPermissionsOfRoleService;
@@ -58,6 +60,29 @@ class RoleController extends TransactionalRestController
             $service,
             new DeleteRoleRequest(
                 $request->get('id')
+            )
+        );
+
+        return new JsonResponse($data , JsonResponse::HTTP_OK);
+    }
+
+    /**
+     * @Rest\Put("/api/role" , name="delete_role")
+     * @param Request $request
+     *
+     *
+     * @param EditRoleService $service
+     *
+     * @return JsonResponse
+     */
+    public function editRole(Request $request , EditRoleService $service): JsonResponse
+    {
+        $data = $this->runAsTransaction(
+            $service,
+            new EditRoleRequest(
+                $request->get('id'),
+                $request->get('name'),
+                $request->get('designation')
             )
         );
 

@@ -103,4 +103,28 @@ class Role
     {
         return $this->id;
     }
+
+    /**
+     * @param string $role
+     *
+     * @return Role
+     */
+    public function setRole(string $role): Role
+    {
+        $this->role = $role;
+
+        return $this;
+}
+
+    /**
+     * @param string $name
+     *
+     * @return Role
+     */
+    public function setName(string $name): Role
+    {
+        $this->name = $name;
+
+        return $this;
+}
 }
