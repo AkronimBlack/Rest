@@ -47,7 +47,15 @@ class AddPermissionsToRoleService implements TransactionalServiceInterface
             if(!$permission){
                 throw new NoSuchPermissionException(['name' => $permission['name']]);
             }
-            $role->addPermission($permission);
+            $add = true;
+            foreach ($role->getPermissions() as $existingPermission){
+                if($existingPermission->getName() === $permission->getName()){
+                    $add = false;
+                }
+            }
+            if($add) {
+                $role->addPermission($permission);
+            }
         }
     }
 }
