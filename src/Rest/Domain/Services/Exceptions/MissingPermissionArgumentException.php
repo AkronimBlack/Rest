@@ -1,21 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BlackBit
- * Date: 14-Apr-19
- * Time: 15:37
- */
+
 
 namespace Rest\Domain\Services\Exceptions;
 
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class NoSuchRoleException extends DomainException implements DomainExceptionInterface
+class MissingPermissionArgumentException extends DomainException implements DomainExceptionInterface
 {
     public function __construct(array $array)
     {
-        $return['error'] = 'No such role exists!';
+        $return['error'] = 'Permission missing argument';
         $return['resource'] = $array;
         parent::__construct(JsonResponse::HTTP_BAD_REQUEST, $return);
     }

@@ -9,7 +9,7 @@
 namespace Rest\Domain\Services\Exceptions;
 
 
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class GeneralDomainServerError extends DomainException implements DomainExceptionInterface
 {
@@ -17,6 +17,6 @@ class GeneralDomainServerError extends DomainException implements DomainExceptio
     {
         $return['resource'] = $array;
         $return['error'] = 'Something went wrong. Notify someone... or scream for help';
-        parent::__construct(Response::HTTP_INTERNAL_SERVER_ERROR , $return);
+        parent::__construct(JsonResponse::HTTP_INTERNAL_SERVER_ERROR , $return);
     }
 }

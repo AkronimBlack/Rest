@@ -57,6 +57,7 @@ class Role
 
     public function addPermission(Permission $permission): Role
     {
+        $permission->addRole($this);
         $this->permissions[] = $permission;
         return $this;
     }

@@ -9,7 +9,7 @@
 namespace Rest\Domain\Services\Exceptions;
 
 
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class InvalidTokenException extends DomainException implements DomainExceptionInterface
 {
@@ -17,6 +17,6 @@ class InvalidTokenException extends DomainException implements DomainExceptionIn
     {
         $return['error'] = 'Invalid authentication token!';
         $return['resource'] = $array;
-        parent::__construct(Response::HTTP_UNAUTHORIZED, $return);
+        parent::__construct(JsonResponse::HTTP_UNAUTHORIZED, $return);
     }
 }
