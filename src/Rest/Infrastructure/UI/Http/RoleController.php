@@ -1,15 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BlackBit
- * Date: 14-Apr-19
- * Time: 14:58
- */
 
 namespace Rest\Infrastructure\UI\Http;
 
 
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Rest\Application\Service\Role\AddPermissionsToRoleRequest;
+use Rest\Application\Service\Role\AddPermissionsToRoleService;
 use Rest\Application\Service\Role\CreateNewRoleRequest;
 use Rest\Application\Service\Role\CreateNewRoleService;
 use Rest\Application\Service\Role\DeleteRoleRequest;
@@ -32,7 +28,7 @@ class RoleController extends TransactionalRestController
      *
      * @return JsonResponse
      */
-    public function createNewRole(Request $request , CreateNewRoleService $service): JsonResponse
+    public function createNewRole(Request $request, CreateNewRoleService $service): JsonResponse
     {
         $data = $this->runAsTransaction(
             $service,
@@ -42,7 +38,7 @@ class RoleController extends TransactionalRestController
             )
         );
 
-        return new JsonResponse($data , JsonResponse::HTTP_OK);
+        return new JsonResponse($data, JsonResponse::HTTP_OK);
     }
 
     /**
@@ -54,7 +50,7 @@ class RoleController extends TransactionalRestController
      *
      * @return JsonResponse
      */
-    public function deleteRole(Request $request , DeleteRoleService $service): JsonResponse
+    public function deleteRole(Request $request, DeleteRoleService $service): JsonResponse
     {
         $data = $this->runAsTransaction(
             $service,
@@ -63,7 +59,7 @@ class RoleController extends TransactionalRestController
             )
         );
 
-        return new JsonResponse($data , JsonResponse::HTTP_OK);
+        return new JsonResponse($data, JsonResponse::HTTP_OK);
     }
 
     /**
@@ -75,7 +71,7 @@ class RoleController extends TransactionalRestController
      *
      * @return JsonResponse
      */
-    public function editRole(Request $request , EditRoleService $service): JsonResponse
+    public function editRole(Request $request, EditRoleService $service): JsonResponse
     {
         $data = $this->runAsTransaction(
             $service,
@@ -86,17 +82,9 @@ class RoleController extends TransactionalRestController
             )
         );
 
-        return new JsonResponse($data , JsonResponse::HTTP_OK);
+        return new JsonResponse($data, JsonResponse::HTTP_OK);
     }
 
-
-    /**
-     * @Rest\Post("/api/role/permission" , name="add_permission_to_role")
-     */
-    public function addPermissionToRole(): void
-    {
-
-    }
 
     /**
      * @Rest\Get("/api/roles" , name="view_all_roles")
@@ -124,7 +112,25 @@ class RoleController extends TransactionalRestController
                 $request->get('roleDesignation')
             )
         );
-
         return new JsonResponse($data, JsonResponse::HTTP_OK);
+    }
+
+    /**
+     * @Rest\Post("/api/role/permission" , name="add_permission_to_role")
+     * @param AddPermissionsToRoleService $service
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function addPermissionsToRole(AddPermissionsToRoleService $service , Request $request): JsonResponse
+    {
+        $data = $this->runAsTransaction(
+            $service,
+            new AddPermissionsToRoleRequest(
+                $request->get('roleId'),
+                $request->get('permissions')
+            )
+        );
+        return new JsonResponse($data , JsonResponse::HTTP_OK);
     }
 }

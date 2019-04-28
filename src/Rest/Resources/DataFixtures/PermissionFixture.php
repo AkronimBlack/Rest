@@ -24,31 +24,35 @@ class PermissionFixture extends Fixture
     public function load(ObjectManager $manager)
     {
         $arrayOfPermissions = array(
-            'get_user_settings' => array(
-                '/user/settings' => 'GET'
+            'get_user_settings'         => array(
+                '/user/settings' => 'GET',
             ),
-            'add_permission_to_role' => array(
-                '/api/role/permission' => 'POST'
+            'add_permission_to_role'    => array(
+                '/api/role/permission' => 'POST',
             ),
-            'view_all_roles' => array(
-                '/api/roles' => 'GET'
+            'view_all_roles'            => array(
+                '/api/roles' => 'GET',
             ),
             'view_permissions_for_role' => array(
-                '/api/role/permissions' => 'GET'
+                '/api/role/permissions' => 'GET',
             ),
-            'create_role' => array(
-                '/api/role' => 'POST'
+            'create_role'               => array(
+                '/api/role' => 'POST',
             ),
-            'delete_role' => array(
-                '/api/role' => 'DELETE'
+            'delete_role'               => array(
+                '/api/role' => 'DELETE',
             ),
-            'edit_role' => array(
-                '/api/role' => 'PUT'
-            )
+            'edit_role'                 => array(
+                '/api/role' => 'PUT',
+            ),
+            'view_all_permissions'      => array(
+                '/api/permissions' => 'GET',
+            ),
+
         );
 
         foreach ($arrayOfPermissions as $name => $array) {
-            foreach ($array as $key => $value){
+            foreach ($array as $key => $value) {
                 $permission = new Permission(
                     $name,
                     $key,
