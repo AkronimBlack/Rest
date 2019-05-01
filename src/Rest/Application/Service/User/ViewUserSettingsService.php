@@ -27,10 +27,10 @@ class ViewUserSettingsService implements TransactionalServiceInterface
     public function execute($request = null)
     {
 
-        $user = $this->userRepository->byIdentifier($request->getValidatedUser()->getUsername());
+        $user = $this->userRepository->byIdentifier($request->getValidatedUser()->getUid());
         if(!$user){
             $user = new User(
-                $request->getValidatedUser()->getUsername()
+                $request->getValidatedUser()->getUid()
             );
             $this->userRepository->persist($user);
         }

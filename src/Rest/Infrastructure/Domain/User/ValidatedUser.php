@@ -12,20 +12,24 @@ class ValidatedUser implements UserInterface , UserValidationInterface
 {
     private $username;
     private $roles;
+    private $uid;
 
     /**
      * ValidatedUser constructor.
      *
      * @param $username
      * @param $roles
+     * @param $uid
      */
     public function __construct(
         $username,
-        $roles
+        $roles,
+        $uid
     )
     {
         $this->username = $username;
         $this->roles = $roles;
+        $this->uid = $uid;
     }
 
     /**
@@ -110,5 +114,13 @@ class ValidatedUser implements UserInterface , UserValidationInterface
             }
         }
         return false;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUid()
+    {
+        return $this->uid;
     }
 }
