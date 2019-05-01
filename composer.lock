@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1b2bebef76258695f280727258204975",
+    "content-hash": "112e5239c8c9dc215fc56e33438cd285",
     "packages": [
         {
             "name": "blackbit/transactional",
@@ -2696,7 +2696,7 @@
         },
         {
             "name": "symfony/cache",
-            "version": "v4.2.7",
+            "version": "v4.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/cache.git",
