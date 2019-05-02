@@ -15,6 +15,7 @@ use Rest\Domain\Entity\Role;
 use Rest\Domain\Entity\User\User;
 use Rest\Domain\Entity\User\UserValidationInterface;
 use Rest\Domain\Services\Exceptions\InvalidTokenException;
+use Rest\Infrastructure\Domain\Cache\RedisCacheService;
 use Rest\Infrastructure\Repositories\RoleRepository;
 
 class ConstructUserFromJwtTokenService
@@ -25,6 +26,10 @@ class ConstructUserFromJwtTokenService
      * @var RoleRepository
      */
     private $roleRepository;
+    /**
+     * @var RedisCacheService
+     */
+    private $cache;
 
     /**
      * ConstructUserFromJwtTokenService constructor.
@@ -32,32 +37,39 @@ class ConstructUserFromJwtTokenService
      * @param $projectDir
      * @param $publicKeyLocation
      * @param EntityManagerInterface $em
+     * @param RedisCacheService $cache
      */
     public function __construct(
         $projectDir,
         $publicKeyLocation,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        RedisCacheService $cache
     ) {
         $this->projectDir        = $projectDir;
         $this->publicKeyLocation = $publicKeyLocation;
         $this->roleRepository    = $em->getRepository(Role::class);
+        $this->cache = $cache;
     }
 
     public function execute(string $token): UserValidationInterface
     {
         $publicKey = file_get_contents($this->projectDir . $this->publicKeyLocation);
         $userData  = JWT::decode($token, $publicKey, ['RS256']);
-
+        $roles = $this->getRolesFromCache();
         if ($userData->rol) {
             $userRoles = [];
             foreach ($userData->rol as $role) {
-                $userRoles[] = $this->roleRepository->findByReference($role);
+                foreach ($roles as $sysRole){
+                    if($sysRole->getRole() === $role){
+                        $userRoles[] = $sysRole;
+                    }
+                }
             }
         }else{
             throw new InvalidTokenException(['Roles' => 'missing']);
         }
 
-        if(!$userData->uid){
+        if(!isset($userData->uid)){
             throw new InvalidTokenException(['UID' => 'missing']);
         }
 
@@ -67,5 +79,17 @@ class ConstructUserFromJwtTokenService
             $userData->uid
         );
 
+    }
+
+    private function getRolesFromCache()
+    {
+        $cache = $this->cache->getCache();
+        $cachedRoles = $cache->getItem('roles');
+        if(!$cachedRoles->isHit()){
+            $roles = $this->roleRepository->findAll();
+            $cachedRoles->set($roles);
+            $cache->save($cachedRoles);
+        }
+        return $cachedRoles->get();
     }
 }

@@ -4,36 +4,38 @@
 namespace Rest\Infrastructure\Domain\Role;
 
 
-use Symfony\Component\Cache\Adapter\AdapterInterface;
-use Symfony\Component\Cache\Adapter\RedisAdapter;
+use Doctrine\ORM\EntityManagerInterface;
+use Psr\Cache\InvalidArgumentException;
+use Rest\Domain\Entity\Role;
+use Rest\Infrastructure\Domain\Cache\RedisCacheService;
 
 class ImportRolesToCacheService
 {
-    private $redis;
-    /**
-     * @var AdapterInterface
-     */
     private $cache;
 
-    public function __construct(AdapterInterface $cache)
+    private $roleRepository;
+
+    /**
+     * ImportRolesToCacheService constructor.
+     *
+     * @param RedisCacheService $cache
+     * @param EntityManagerInterface $em
+     */
+    public function __construct(RedisCacheService $cache, EntityManagerInterface $em)
     {
-        $this->cache = $cache;
+        $this->cache          = $cache->getCache();
+        $this->roleRepository = $em->getRepository(Role::class);
     }
 
     public function execute()
     {
-        $this->cache = new RedisAdapter(
-            RedisAdapter::createConnection('redis://rest-redis')
-        );
-        $test = $this->cache->getItem('test');
-        $test->set('testing value');
-        $this->cache->save($test);
-//        $productsCount = $this->cache->getItem('stats.products_count');
-//        if (!$productsCount->isHit()) {
-//            $productsCount->set(4711);
-//            $this->cache->save($productsCount);
-//        }
-
-//        return $productsCount->get();
+        $cachedRoles = $this->cache->getItem('roles');
+        if($cachedRoles->isHit()){
+            $this->cache->delete('roles');
+        }
+        $roles = $this->roleRepository->findAll();
+        $cachedRoles->set($roles);
+        $this->cache->save($cachedRoles);
+        return $cachedRoles;
     }
 }
