@@ -6,6 +6,7 @@ namespace Rest\Application\Service\Role;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Rest\Domain\Entity\Role;
+use Rest\Domain\Services\Exceptions\InvalidParameterException;
 use Transactional\Interfaces\TransactionalServiceInterface;
 
 class CreateNewRoleService implements TransactionalServiceInterface
@@ -26,6 +27,12 @@ class CreateNewRoleService implements TransactionalServiceInterface
      */
     public function execute($request = null)
     {
+        if ($request->getName() === '' || $request->getDesignation() === ''){
+            throw new InvalidParameterException([
+                'roleName' => $request->getName(),
+                'roleDesignation' => $request->getDesignation()
+            ]);
+        }
         $role = new Role(
             $request->getDesignation(),
             $request->getName()

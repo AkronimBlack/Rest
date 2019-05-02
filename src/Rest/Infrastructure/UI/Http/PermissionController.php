@@ -15,6 +15,8 @@ class PermissionController extends TransactionalRestController
      * @Rest\Get("/api/permissions" , name="view_all_permissions")
      * @param ViewAllPermissionsService $service
      *
+     * @param Request $request
+     *
      * @return JsonResponse
      */
     public function viewAllPermissions(ViewAllPermissionsService $service , Request $request): JsonResponse

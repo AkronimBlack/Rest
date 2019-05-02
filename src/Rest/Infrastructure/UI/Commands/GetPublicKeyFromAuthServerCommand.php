@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BlackBit
- * Date: 04-Apr-19
- * Time: 18:50
- */
 
 namespace Rest\Infrastructure\UI\Commands;
 

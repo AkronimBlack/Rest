@@ -56,6 +56,10 @@ class GetPublicKeyFromAuthService implements TransactionalServiceInterface
             $data = json_decode($response->getBody(), true);
             file_put_contents($this->projectDir . $this->publicKeyLocation, $data['key']);
             echo 'File created!' . PHP_EOL;
+        }else{
+            echo 'Something went wrong' . PHP_EOL;
+            echo 'Authentication server returned status: ' . $response->getStatusCode() . PHP_EOL;
+            echo 'With message: ' . $response->getBody() . PHP_EOL;
         }
     }
 }
