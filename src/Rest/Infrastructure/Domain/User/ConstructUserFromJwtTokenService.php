@@ -56,7 +56,7 @@ class ConstructUserFromJwtTokenService
         $publicKey = file_get_contents($this->projectDir . $this->publicKeyLocation);
         $userData  = JWT::decode($token, $publicKey, ['RS256']);
         $roles = $this->getRolesFromCache();
-        if ($userData->rol) {
+        if (isset($userData->rol)) {
             $userRoles = [];
             foreach ($userData->rol as $role) {
                 foreach ($roles as $sysRole){
