@@ -34,6 +34,7 @@ services:
       networks:
         - backend_rest
         - reverse-proxy-nginx_reverse-proxy
+        - auth_backend_auth
       volumes:
         - .:/application
         - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.3/fpm/conf.d/99-overrides.ini
@@ -53,6 +54,8 @@ services:
 networks:
   backend_rest:
   reverse-proxy-nginx_reverse-proxy:
+    external: true
+  auth_backend_auth:
     external: true
 
 

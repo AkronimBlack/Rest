@@ -7,16 +7,28 @@ namespace Rest\Application\Service\Role;
 use Doctrine\ORM\EntityManagerInterface;
 use Rest\Domain\Entity\Role;
 use Rest\Domain\Services\Exceptions\InvalidParameterException;
+use Rest\Infrastructure\Domain\Messages\NewRoleCreatedMessage;
 use Transactional\Interfaces\TransactionalServiceInterface;
 
 class CreateNewRoleService implements TransactionalServiceInterface
 {
     private $roleRepository;
+    /**
+     * @var EntityManagerInterface
+     */
+    private $em;
+    /**
+     * @var NewRoleCreatedMessage
+     */
+    private $message;
 
     public function __construct(
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        NewRoleCreatedMessage $message
     ) {
         $this->roleRepository = $em->getRepository(Role::class);
+        $this->em = $em;
+        $this->message = $message;
     }
 
     /**
@@ -38,6 +50,8 @@ class CreateNewRoleService implements TransactionalServiceInterface
             $request->getName()
         );
         $this->roleRepository->persist($role);
+
+        $this->message->publishMessage($role);
 
         return $role;
     }

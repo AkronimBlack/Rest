@@ -34,3 +34,6 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # RABBIT MQ PRODUCERS
+    Rest\Infrastructure\Domain\Messages\NewRoleCreatedMessage: '@old_sound_rabbit_mq.new_role_producer'

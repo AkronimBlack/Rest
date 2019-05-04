@@ -48,28 +48,28 @@ class ConstructUserFromJwtTokenService
         $this->projectDir        = $projectDir;
         $this->publicKeyLocation = $publicKeyLocation;
         $this->roleRepository    = $em->getRepository(Role::class);
-        $this->cache = $cache;
+        $this->cache             = $cache;
     }
 
     public function execute(string $token): UserValidationInterface
     {
-        $publicKey = file_get_contents($this->projectDir . $this->publicKeyLocation);
-        $userData  = JWT::decode($token, $publicKey, ['RS256']);
-        $roles = $this->getRolesFromCache();
+        $publicKey   = file_get_contents($this->projectDir . $this->publicKeyLocation);
+        $userData    = JWT::decode($token, $publicKey, ['RS256']);
+        $roles       = $this->getRolesFromCache();
         if (isset($userData->rol)) {
             $userRoles = [];
             foreach ($userData->rol as $role) {
-                foreach ($roles as $sysRole){
-                    if($sysRole->getRole() === $role){
+                foreach ($roles as $sysRole) {
+                    if ($sysRole->getRole() === $role) {
                         $userRoles[] = $sysRole;
                     }
                 }
             }
-        }else{
+        } else {
             throw new InvalidTokenException(['Roles' => 'missing']);
         }
 
-        if(!isset($userData->uid)){
+        if ( ! isset($userData->uid)) {
             throw new InvalidTokenException(['UID' => 'missing']);
         }
 
@@ -83,13 +83,35 @@ class ConstructUserFromJwtTokenService
 
     private function getRolesFromCache()
     {
-        $cache = $this->cache->getCache();
+        $cache       = $this->cache->getCache();
         $cachedRoles = $cache->getItem('roles');
-        if(!$cachedRoles->isHit()){
+        $rolesArray  = [];
+        if ( ! $cachedRoles->isHit()) {
             $roles = $this->roleRepository->findAll();
-            $cachedRoles->set($roles);
+            foreach ($roles as $role) {
+                $rolePermissions = [];
+                foreach ($role->getPermissions() as $permission){
+                    $rolePermissions[] = $permission;
+                }
+                $rolesArray[] = [
+                    'role'        => $role,
+                    'permissions' => $rolePermissions,
+                ];
+            }
+            $cachedRoles->set($rolesArray);
             $cache->save($cachedRoles);
         }
-        return $cachedRoles->get();
+        $roles = [];
+        foreach ($cachedRoles->get() as $roleData){
+            /**
+             * @var Role $role
+             */
+            $role = $roleData['role'];
+            foreach ($roleData['permissions'] as $permission){
+                $role->addPermission($permission);
+            }
+            $roles[] = $role;
+        }
+        return $roles;
     }
 }
