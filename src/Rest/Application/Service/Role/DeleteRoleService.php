@@ -7,16 +7,23 @@ namespace Rest\Application\Service\Role;
 use Doctrine\ORM\EntityManagerInterface;
 use Rest\Domain\Entity\Role;
 use Rest\Domain\Services\Exceptions\NoSuchRoleException;
+use Rest\Infrastructure\Domain\Messages\RoleHasBeenDeletedMessageService;
 use Transactional\Interfaces\TransactionalServiceInterface;
 
 class DeleteRoleService implements TransactionalServiceInterface
 {
     private $roleRepository;
+    /**
+     * @var RoleHasBeenDeletedMessageService
+     */
+    private $messageService;
 
     public function __construct(
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        RoleHasBeenDeletedMessageService $messageService
     ) {
         $this->roleRepository = $em->getRepository(Role::class);
+        $this->messageService = $messageService;
     }
 
     /**
@@ -33,5 +40,6 @@ class DeleteRoleService implements TransactionalServiceInterface
 
         $this->roleRepository->remove($role);
 
+        $this->messageService->publishMessage($role);
     }
 }

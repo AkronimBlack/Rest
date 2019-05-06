@@ -36,4 +36,5 @@ services:
     # please note that last definitions always *replace* previous ones
 
     # RABBIT MQ PRODUCERS
-    Rest\Infrastructure\Domain\Messages\NewRoleCreatedMessage: '@old_sound_rabbit_mq.new_role_producer'
+    Rest\Infrastructure\Domain\Messages\NewRoleCreatedMessageService: '@old_sound_rabbit_mq.new_role_producer'
+    Rest\Infrastructure\Domain\Messages\RoleHasBeenDeletedMessageService: '@old_sound_rabbit_mq.role_deleted_producer'

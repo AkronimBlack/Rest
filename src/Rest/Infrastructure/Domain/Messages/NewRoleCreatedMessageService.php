@@ -7,7 +7,7 @@ namespace Rest\Infrastructure\Domain\Messages;
 use OldSound\RabbitMqBundle\RabbitMq\Producer;
 use Rest\Domain\Entity\Role;
 
-class NewRoleCreatedMessage extends Producer
+class NewRoleCreatedMessageService extends Producer
 {
     /**
      * @param Role $role
