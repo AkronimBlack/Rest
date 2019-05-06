@@ -112,6 +112,7 @@ class RoleController extends TransactionalRestController
                 $request->get('roleDesignation')
             )
         );
+
         return new JsonResponse($data, JsonResponse::HTTP_OK);
     }
 
@@ -122,7 +123,7 @@ class RoleController extends TransactionalRestController
      *
      * @return JsonResponse
      */
-    public function addPermissionsToRole(AddPermissionsToRoleService $service , Request $request): JsonResponse
+    public function addPermissionsToRole(AddPermissionsToRoleService $service, Request $request): JsonResponse
     {
         $data = $this->runAsTransaction(
             $service,
@@ -131,6 +132,7 @@ class RoleController extends TransactionalRestController
                 $request->get('permissions')
             )
         );
-        return new JsonResponse($data , JsonResponse::HTTP_OK);
+
+        return new JsonResponse($data, JsonResponse::HTTP_OK);
     }
 }

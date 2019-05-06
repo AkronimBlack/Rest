@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BlackBit
- * Date: 20-Jan-19
- * Time: 9:43
- */
 
 namespace Rest\Domain\Services\Exceptions;
 
@@ -16,8 +10,10 @@ class UserDoesntHavePermissionException extends DomainException implements Domai
 
     public function __construct(array $array)
     {
-        $return['error'] = 'User does not have permission!';
-        $return['resource'] = $array;
+        $return = [
+            'error'    => 'User does not have permission!',
+            'resource' => $array,
+        ];
         parent::__construct(JsonResponse::HTTP_UNAUTHORIZED, $return);
     }
 }

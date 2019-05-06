@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Rest\Domain\Services\Exceptions;
 
 
@@ -10,8 +9,10 @@ class NoSuchPermissionException extends DomainException implements DomainExcepti
 {
     public function __construct(array $array)
     {
-        $return['error'] = 'Permission with that name does not exist';
-        $return['resource'] = $array;
+        $return = [
+            'error'    => 'Permission with that name does not exist',
+            'resource' => $array,
+        ];
         parent::__construct(JsonResponse::HTTP_BAD_REQUEST, $return);
     }
 }

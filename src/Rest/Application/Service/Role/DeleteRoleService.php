@@ -15,8 +15,7 @@ class DeleteRoleService implements TransactionalServiceInterface
 
     public function __construct(
         EntityManagerInterface $em
-    )
-    {
+    ) {
         $this->roleRepository = $em->getRepository(Role::class);
     }
 
@@ -28,7 +27,7 @@ class DeleteRoleService implements TransactionalServiceInterface
     public function execute($request = null)
     {
         $role = $this->roleRepository->find($request->getId());
-        if(!$role){
+        if ( ! $role) {
             throw new NoSuchRoleException(['id' => $request->getId()]);
         }
 

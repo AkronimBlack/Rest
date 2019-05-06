@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Rest\Domain\Services\Exceptions;
 
 
@@ -10,8 +9,10 @@ class MissingPermissionArgumentException extends DomainException implements Doma
 {
     public function __construct(array $array)
     {
-        $return['error'] = 'Permission missing argument';
-        $return['resource'] = $array;
+        $return = [
+            'error'    => 'Permission missing argument',
+            'resource' => $array,
+        ];
         parent::__construct(JsonResponse::HTTP_BAD_REQUEST, $return);
     }
 }

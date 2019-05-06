@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BlackBit
- * Date: 14-Apr-19
- * Time: 15:37
- */
 
 namespace Rest\Domain\Services\Exceptions;
 
@@ -15,8 +9,10 @@ class NoSuchRoleException extends DomainException implements DomainExceptionInte
 {
     public function __construct(array $array)
     {
-        $return['error'] = 'No such role exists!';
-        $return['resource'] = $array;
-        parent::__construct(JsonResponse::HTTP_BAD_REQUEST, $return);
+        $return = [
+            'error'    => 'No such role exists!',
+            'resource' => $array,
+        ];
+        parent::__construct(JsonResponse::HTTP_NOT_FOUND, $return);
     }
 }

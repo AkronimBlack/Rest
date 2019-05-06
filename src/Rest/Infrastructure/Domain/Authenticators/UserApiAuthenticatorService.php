@@ -75,7 +75,7 @@ class UserApiAuthenticatorService extends AbstractGuardAuthenticator
      */
     public function getCredentials(Request $request)
     {
-        if(!$request->headers->has($this->keyword) && !(strpos($request->headers->get($this->keyword), 'Bearer ') !== false)){
+        if ( ! $request->headers->has($this->keyword) && ! (strpos($request->headers->get($this->keyword), 'Bearer ') !== false)) {
             throw new InvalidTokenException(['token' => 'missing']);
         }
         [$tokenType, $token] = explode(' ', $request->headers->get('Authorization'));
