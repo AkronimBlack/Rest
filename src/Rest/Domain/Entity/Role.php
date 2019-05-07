@@ -32,6 +32,9 @@ class Role
      */
     private $permissions;
 
+    private $parentRoles;
+
+    private $childrenRoles;
     /**
      * Role constructor.
      * @param string $role
@@ -45,6 +48,31 @@ class Role
         $this->role = $role;
         $this->permissions = new ArrayCollection();
         $this->name = $name;
+
+        $this->parentRoles = new ArrayCollection();
+        $this->childrenRoles = new ArrayCollection();
+    }
+
+    /**
+     * @param Role $role
+     */
+    public function addParentRole(Role $role): void
+    {
+        if(!$role->getChildrenRoles()->contains($this)){
+            $role->addChildrenRole($this);
+        }
+        $this->parentRoles[] = $role;
+    }
+
+    /**
+     * @param Role $role
+     */
+    public function addChildrenRole(Role $role): void
+    {
+        if(!$role->getParentRoles()->contains($this)){
+            $role->addParentRole($this);
+        }
+        $this->childrenRoles[] = $role;
     }
 
     /**
@@ -128,4 +156,20 @@ class Role
 
         return $this;
 }
+
+    /**
+     * @return PersistentCollection
+     */
+    public function getParentRoles(): PersistentCollection
+    {
+        return $this->parentRoles;
+    }
+
+    /**
+     * @return PersistentCollection
+     */
+    public function getChildrenRoles(): PersistentCollection
+    {
+        return $this->childrenRoles;
+    }
 }
