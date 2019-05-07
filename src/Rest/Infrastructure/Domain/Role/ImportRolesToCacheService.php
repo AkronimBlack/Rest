@@ -13,18 +13,14 @@ class ImportRolesToCacheService
 {
     private $cache;
 
-    private $roleRepository;
-
     /**
      * ImportRolesToCacheService constructor.
      *
      * @param RedisCacheService $cache
-     * @param EntityManagerInterface $em
      */
-    public function __construct(RedisCacheService $cache, EntityManagerInterface $em)
+    public function __construct(RedisCacheService $cache)
     {
         $this->cache          = $cache->getCache();
-        $this->roleRepository = $em->getRepository(Role::class);
     }
 
     public function execute()
@@ -33,9 +29,6 @@ class ImportRolesToCacheService
         if($cachedRoles->isHit()){
             $this->cache->delete('roles');
         }
-        $roles = $this->roleRepository->findAll();
-        $cachedRoles->set($roles);
-        $this->cache->save($cachedRoles);
-        return $cachedRoles;
+        return 'Roles cache has been nullified. Next HTTP request will cache the roles';
     }
 }

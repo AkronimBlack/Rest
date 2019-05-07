@@ -12,6 +12,8 @@ use Rest\Application\Service\Role\DeleteRoleRequest;
 use Rest\Application\Service\Role\DeleteRoleService;
 use Rest\Application\Service\Role\EditRoleRequest;
 use Rest\Application\Service\Role\EditRoleService;
+use Rest\Application\Service\Role\ExtendRoleRequest;
+use Rest\Application\Service\Role\ExtendRoleService;
 use Rest\Application\Service\Role\ViewAllRolesService;
 use Rest\Application\Service\Role\ViewPermissionsOfRoleRequest;
 use Rest\Application\Service\Role\ViewPermissionsOfRoleService;
@@ -133,6 +135,25 @@ class RoleController extends TransactionalRestController
             )
         );
 
+        return new JsonResponse($data, JsonResponse::HTTP_OK);
+    }
+
+    /**
+     * @Rest\Put("/api/role/extend" , name="extend_role")
+     * @param Request $request
+     * @param ExtendRoleService $service
+     *
+     * @return JsonResponse
+     */
+    public function extendRole(Request $request, ExtendRoleService $service): JsonResponse
+    {
+        $data = $this->runAsTransaction(
+            $service,
+            new ExtendRoleRequest(
+                $request->get('roleDesignation'),
+                $request->get('roleFromDesignation')
+            )
+        );
         return new JsonResponse($data, JsonResponse::HTTP_OK);
     }
 }

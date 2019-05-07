@@ -18,3 +18,9 @@ Rest\Domain\Entity\Role:
     permissions:
       targetEntity: Rest\Domain\Entity\Permission
       inversedBy: roles
+    parentRoles:
+      targetEntity: Rest\Domain\Entity\Role
+      inversedBy: childrenRoles
+    childrenRoles:
+      targetEntity: Rest\Domain\Entity\Role
+      mappedBy: parentRoles

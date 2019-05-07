@@ -48,6 +48,9 @@ class PermissionFixture extends Fixture
             'view_all_permissions'      => array(
                 '/api/permissions' => 'GET',
             ),
+            'extend_role'      => array(
+                '/api/role/extend' => 'PUT',
+            ),
 
         );
 
