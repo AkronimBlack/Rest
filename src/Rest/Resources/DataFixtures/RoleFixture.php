@@ -44,7 +44,8 @@ class RoleFixture extends Fixture implements DependentFixtureInterface
                     'create_role',
                     'delete_role',
                     'edit_role',
-                    'view_all_permissions'
+                    'view_all_permissions',
+                    'extend_role'
                 ),
             )
         );

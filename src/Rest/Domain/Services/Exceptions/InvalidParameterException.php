@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class InvalidParameterException extends DomainException implements DomainExceptionInterface
 {
-    public function __construct(array $array)
+    public function __construct(array $array = [])
     {
         $return = [
             'error'    => 'One or more parameters is invalid',

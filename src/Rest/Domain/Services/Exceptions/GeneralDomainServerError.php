@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class GeneralDomainServerError extends DomainException implements DomainExceptionInterface
 {
-    public function __construct(array $array)
+    public function __construct(array $array = [])
     {
         $return = [
             'error'    => 'Something went wrong. Notify someone... or scream for help',
