@@ -93,7 +93,7 @@ class Role
         $permissionsArray = [];
         foreach ($this->getParentRoles() as $extendedRoles) {
             foreach ($extendedRoles->getPermissions() as $permission) {
-                $permission[] = $permission;
+                $permissionsArray[] = $permission;
             }
         }
         foreach ($this->permissions as $permission) {

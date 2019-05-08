@@ -88,6 +88,9 @@ class ConstructUserFromJwtTokenService
         $rolesArray  = [];
         if ( ! $cachedRoles->isHit()) {
             $roles = $this->roleRepository->findAll();
+            /**
+             * @var Role $role
+             */
             foreach ($roles as $role) {
                 $rolePermissions = [];
                 foreach ($role->getPermissions() as $permission){
