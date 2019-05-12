@@ -15,6 +15,8 @@ use Rest\Application\Service\Role\EditRoleService;
 use Rest\Application\Service\Role\ExtendRoleRequest;
 use Rest\Application\Service\Role\ExtendRoleService;
 use Rest\Application\Service\Role\ViewAllRolesService;
+use Rest\Application\Service\Role\ViewExtendedRolesForRoleRequest;
+use Rest\Application\Service\Role\ViewExtendedRolesForRoleService;
 use Rest\Application\Service\Role\ViewPermissionsOfRoleRequest;
 use Rest\Application\Service\Role\ViewPermissionsOfRoleService;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -150,8 +152,25 @@ class RoleController extends TransactionalRestController
         $data = $this->runAsTransaction(
             $service,
             new ExtendRoleRequest(
-                $request->get('roleDesignation'),
-                $request->get('roleFromDesignation')
+                $request->get('roleToExtend'),
+                $request->get('rolesBeingExtended')
+            )
+        );
+        return new JsonResponse($data, JsonResponse::HTTP_OK);
+    }
+
+    /**
+     * @Rest\Get("/api/role/extend" , name="view_extended_roles")
+     * @param Request $request
+     * @param ViewExtendedRolesForRoleService $service
+     *
+     * @return JsonResponse
+     */
+    public function getExtendRoles(Request $request, ViewExtendedRolesForRoleService $service): JsonResponse
+    {
+        $data = $service->execute(
+            new ViewExtendedRolesForRoleRequest(
+                $request->get('roleDesignation')
             )
         );
         return new JsonResponse($data, JsonResponse::HTTP_OK);

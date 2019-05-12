@@ -1,21 +1,25 @@
 <?php
 
+
 namespace Rest\Application\Service\Role;
 
 
-class ViewPermissionsOfRoleRequest
+class ViewExtendedRolesForRoleRequest
 {
+    /**
+     * @var null
+     */
     private $roleDesignation;
 
     public function __construct(
-        $roleDesignation
+        $roleDesignation = null
     )
     {
         $this->roleDesignation = $roleDesignation;
     }
 
     /**
-     * @return mixed
+     * @return null
      */
     public function getRoleDesignation()
     {
