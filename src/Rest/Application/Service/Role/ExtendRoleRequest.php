@@ -7,15 +7,15 @@ namespace Rest\Application\Service\Role;
 class ExtendRoleRequest
 {
     private $roleToExtend;
-    private $roleBeingExtended;
+    private $rolesBeingExtended;
 
     public function __construct(
         $roleToExtend,
-        $roleBeingExtended
+        $rolesBeingExtended
     )
     {
         $this->roleToExtend = $roleToExtend;
-        $this->roleBeingExtended = $roleBeingExtended;
+        $this->rolesBeingExtended = $rolesBeingExtended;
     }
 
     /**
@@ -29,9 +29,9 @@ class ExtendRoleRequest
     /**
      * @return mixed
      */
-    public function getRoleBeingExtended()
+    public function getRolesBeingExtended()
     {
-        return $this->roleBeingExtended;
+        return $this->rolesBeingExtended;
     }
 
 

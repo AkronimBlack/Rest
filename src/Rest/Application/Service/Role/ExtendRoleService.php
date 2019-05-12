@@ -29,12 +29,15 @@ class ExtendRoleService implements TransactionalServiceInterface
         if(!$roleToExtend){
             throw new NoSuchRoleException(['role_designation' => $request->getRoleToExtend()]);
         }
-        $roleBeingExtended = $this->roleRepository->findByReference($request->getRoleBeingExtended());
-        if(!$roleBeingExtended){
-            throw new NoSuchRoleException(['role_designation' => $request->getRoleBeingExtended()]);
-        }
 
-        $roleToExtend->addParentRole($roleBeingExtended);
+        foreach ($request->getRolesBeingExtended() as $extendedRoles){
+
+            $roleBeingExtended = $this->roleRepository->findByReference($extendedRoles['designation']);
+            if(!$roleBeingExtended){
+                throw new NoSuchRoleException(['role_designation' => $extendedRoles['designation']]);
+            }
+            $roleToExtend->addParentRole($roleBeingExtended);
+        }
 
     }
 }

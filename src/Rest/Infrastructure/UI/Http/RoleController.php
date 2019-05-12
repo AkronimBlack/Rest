@@ -152,8 +152,8 @@ class RoleController extends TransactionalRestController
         $data = $this->runAsTransaction(
             $service,
             new ExtendRoleRequest(
-                $request->get('roleDesignation'),
-                $request->get('roleFromDesignation')
+                $request->get('roleToExtend'),
+                $request->get('rolesBeingExtended')
             )
         );
         return new JsonResponse($data, JsonResponse::HTTP_OK);

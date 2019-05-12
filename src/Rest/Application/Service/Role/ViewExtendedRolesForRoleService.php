@@ -37,15 +37,9 @@ class ViewExtendedRolesForRoleService
 
         $returnArray = [];
         foreach ($roles as $aRole){
-//            /**
-//             * @var Role $parentRole
-//             */
-//            foreach ($role->getParentRoles() as $parentRole){
-//                $extends = false;
-//                if($parentRole === $aRole){
-//                    $extends = true;
-//                }
-//            }
+            if($aRole === $role){
+                continue;
+            }
             $extends = false;
             if($role->getParentRoles()->contains($aRole)){
                 $extends = true;
