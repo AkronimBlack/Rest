@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: hr00028131
- * Date: 02.04.2019
- * Time: 13:08
- */
 
 namespace Rest\Infrastructure\UI\Commands;
 

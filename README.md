@@ -67,6 +67,10 @@ php bin/console security:import:routes --update
 php bin/console security:import:routes --clean
 ```
 
+To register as client on auth server
+```
+php bin/console security:auth:register -u USERNAME -p PASSWORD
+```
 
 
 

@@ -10,6 +10,8 @@ namespace Rest\Infrastructure\UI\Http;
 
 
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Rest\Application\Service\User\AssignRoleToUserRequest;
+use Rest\Application\Service\User\AssignRoleToUserService;
 use Rest\Application\Service\User\ViewUserSettingsRequest;
 use Rest\Application\Service\User\ViewUserSettingsService;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -34,15 +36,22 @@ class UserController extends TransactionalRestController
                     $request->get('appId')
             )
         );
-
-
         return new JsonResponse($response, JsonResponse::HTTP_OK);
     }
-//    public function getCalenderData()
-//    {
-//
-//
-//
-//        return new JsonResponse('test' , JsonResponse::HTTP_OK);
-//    }
+
+    /**
+     * @Rest\Put("/api/user/role" , name="assign_user_role")
+     * @param AssignRoleToUserService $service
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function assignRole(AssignRoleToUserService $service , Request $request): JsonResponse
+    {
+        $response = $this->runAsTransaction(
+            $service,
+            new AssignRoleToUserRequest()
+        );
+        return new JsonResponse($response, JsonResponse::HTTP_OK);
+    }
 }
