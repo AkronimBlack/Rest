@@ -33,27 +33,29 @@ services:
       working_dir: /application
       networks:
         - backend_rest
-        - reverse-proxy-nginx_reverse-proxy
+        - reverse_proxy_nginx_reverse-proxy
         - auth_backend_auth
       volumes:
         - .:/application
         - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.3/fpm/conf.d/99-overrides.ini
+      ports:
+        - 8110
 
     rest:
       image: nginx:alpine
       container_name: rest-webserver
       working_dir: /application
       networks:
-        - reverse-proxy-nginx_reverse-proxy
+        - reverse_proxy_nginx_reverse-proxy
         - backend_rest
       volumes:
         - .:/application
         - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      expose:
-        - "80"
+      ports:
+        - 80
 networks:
   backend_rest:
-  reverse-proxy-nginx_reverse-proxy:
+  reverse_proxy_nginx_reverse-proxy:
     external: true
   auth_backend_auth:
     external: true

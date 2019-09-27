@@ -39,19 +39,19 @@ class UserController extends TransactionalRestController
         return new JsonResponse($response, JsonResponse::HTTP_OK);
     }
 
-    /**
-     * @Rest\Put("/api/user/role" , name="assign_user_role")
-     * @param AssignRoleToUserService $service
-     * @param Request $request
-     *
-     * @return JsonResponse
-     */
-    public function assignRole(AssignRoleToUserService $service , Request $request): JsonResponse
-    {
-        $response = $this->runAsTransaction(
-            $service,
-            new AssignRoleToUserRequest()
-        );
-        return new JsonResponse($response, JsonResponse::HTTP_OK);
-    }
+//    /**
+//     * @Rest\Put("/api/user/role" , name="assign_user_role")
+//     * @param AssignRoleToUserService $service
+//     * @param Request $request
+//     *
+//     * @return JsonResponse
+//     */
+//    public function assignRole(AssignRoleToUserService $service , Request $request): JsonResponse
+//    {
+//        $response = $this->runAsTransaction(
+//            $service,
+//            new AssignRoleToUserRequest()
+//        );
+//        return new JsonResponse($response, JsonResponse::HTTP_OK);
+//    }
 }
