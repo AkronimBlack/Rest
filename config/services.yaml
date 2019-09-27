@@ -19,6 +19,7 @@ services:
             $authKeyLocation: '%env(AUTH_KEY_LOCATION)%'
             $publicKeyLocation: '%env(PUBLIC_KEY_LOCATION)%'
             $redisServerDns: '%env(REDIS_SERVER_DNS)%'
+            $noticeCenterPort: '%env(NOTICE_CENTER_PORT)%'
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     Rest\:

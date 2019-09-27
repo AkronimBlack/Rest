@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # Install selected extensions and other stuff
 RUN apt-get update \
-    && apt-get -y --no-install-recommends install  php7.3-mysql php-redis php7.3-sqlite3 php-xdebug php7.3-bcmath php7.3-gmp php-msgpack php7.3-soap php-ssh2 php-yaml \
+    && apt-get -y --no-install-recommends install  php7.3-mysql php-redis php7.3-sqlite3 php-xdebug php7.3-bcmath php7.3-gmp php-msgpack php7.3-soap php-ssh2 php-yaml php-zmq\
     && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
 # Install git
