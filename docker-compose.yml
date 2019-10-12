@@ -38,9 +38,7 @@ services:
       volumes:
         - .:/application
         - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.3/fpm/conf.d/99-overrides.ini
-      ports:
-        - 8110
-
+#
     rest:
       image: nginx:alpine
       container_name: rest-webserver
@@ -59,22 +57,3 @@ networks:
     external: true
   auth_backend_auth:
     external: true
-
-
-#    auth-rabbit:
-#      image: "rabbitmq:3-management"
-#      hostname: ${RABBITMQ_DEFAULT_HOSTNAME}
-#      environment:
-#        RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
-#        RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
-#        RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
-#        RABBITMQ_DEFAULT_VHOST: ${RABBITMQ_DEFAULT_STATUSLAYER_VHOST}
-#      ports:
-#        - "15672:15672"
-#        - "5672:5672"
-#      labels:
-#        NAME: "rabbitmq1"
-#      volumes:
-#        - "./enabled_plugins:/etc/rabbitmq/enabled_plugins"
-        #- "./rabbitmq.config:/etc/rabbitmq/rabbitmq.config:ro"
-        #- "./autocluster-0.4.1.ez:/usr/lib/rabbitmq/lib/rabbitmq_server-3.5.5/plugins/autocluster-0.4.1.ez"

@@ -2,9 +2,6 @@
     "blackbit/transactional": {
         "version": "dev-master"
     },
-    "cboden/ratchet": {
-        "version": "v0.4.1"
-    },
     "dama/doctrine-test-bundle": {
         "version": "4.0",
         "recipe": {
@@ -164,9 +161,6 @@
             "./config/packages/prod/jms_serializer.yaml"
         ]
     },
-    "lcobucci/jwt": {
-        "version": "3.2.5"
-    },
     "liip/functional-test-bundle": {
         "version": "2.0.0-alpha14"
     },
@@ -228,28 +222,7 @@
     "ralouphie/getallheaders": {
         "version": "2.0.5"
     },
-    "ratchet/rfc6455": {
-        "version": "v0.2.5"
-    },
-    "react/cache": {
-        "version": "v1.0.0"
-    },
-    "react/dns": {
-        "version": "v1.2.0"
-    },
     "react/event-loop": {
-        "version": "v1.1.0"
-    },
-    "react/promise": {
-        "version": "v2.7.1"
-    },
-    "react/promise-timer": {
-        "version": "v1.5.1"
-    },
-    "react/socket": {
-        "version": "v1.3.0"
-    },
-    "react/stream": {
         "version": "v1.1.0"
     },
     "react/zmq": {
@@ -266,6 +239,9 @@
         "files": [
             "./config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "symfony/annotations-pack": {
+        "version": "v1.0.0"
     },
     "symfony/browser-kit": {
         "version": "v4.2.4"
@@ -309,6 +285,9 @@
     },
     "symfony/event-dispatcher": {
         "version": "v4.2.4"
+    },
+    "symfony/expression-language": {
+        "version": "v4.2.11"
     },
     "symfony/filesystem": {
         "version": "v4.2.4"
