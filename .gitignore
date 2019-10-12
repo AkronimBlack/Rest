@@ -10,6 +10,7 @@
 /src/Rest/Resources/Persistence/Doctrine/Migrations
 /config/JWT/Auth
 /config/JWT/auth_key.txt
+.env
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
