@@ -21,6 +21,7 @@ use Rest\Application\Service\Role\ViewPermissionsOfRoleRequest;
 use Rest\Application\Service\Role\ViewPermissionsOfRoleService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Transactional\TransactionalRestController;
 
 class RoleController extends TransactionalRestController
 {

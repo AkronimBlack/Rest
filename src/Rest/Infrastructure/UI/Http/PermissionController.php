@@ -8,6 +8,7 @@ use Rest\Application\Service\Permission\ViewAllPermissionsRequest;
 use Rest\Application\Service\Permission\ViewAllPermissionsService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Transactional\TransactionalRestController;
 
 class PermissionController extends TransactionalRestController
 {

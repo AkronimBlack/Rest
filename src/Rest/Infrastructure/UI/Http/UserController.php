@@ -10,12 +10,11 @@ namespace Rest\Infrastructure\UI\Http;
 
 
 use FOS\RestBundle\Controller\Annotations as Rest;
-use Rest\Application\Service\User\AssignRoleToUserRequest;
-use Rest\Application\Service\User\AssignRoleToUserService;
 use Rest\Application\Service\User\ViewUserSettingsRequest;
 use Rest\Application\Service\User\ViewUserSettingsService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Transactional\TransactionalRestController;
 
 class UserController extends TransactionalRestController
 {
